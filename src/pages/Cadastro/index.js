@@ -19,7 +19,7 @@ export default function Cadastro() {
   const [modalMessage, setModalMessage] = useState("");
 
   const salvarDados = async () => {
-    if (!nome || !dataNasc || !peso || !altura || !tipoSangue || !fatorSangue ) {
+    if (!nome || !dataNasc || !peso || !altura || !tipoSangue || !fatorSangue) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
@@ -30,7 +30,7 @@ export default function Cadastro() {
       peso,
       altura,
       tipoSangue,
-      fatorSangue
+      fatorSangue,
     };
 
     try {
@@ -45,16 +45,14 @@ export default function Cadastro() {
     }
   };
 
-    return (
+  return (
     <View style={styles.container}>
-
       <View style={styles.containerTitulo}>
         <Text style={styles.text}>Bem-Vindo(a)!</Text>
         <Text style={styles.text2}>Cadastre-se</Text>
       </View>
 
       <View style={styles.containerInput}>
-
         <TextInput
           style={styles.input}
           placeholder="Nome"
@@ -84,10 +82,16 @@ export default function Cadastro() {
 
         <TextInput
           style={styles.input}
-          placeholder="Confirme sua Senha"
-          secureTextEntry={true}
-          value={confirmarSenha}
-          onChangeText={(text) => setConfirmarSenha(text)}
+          placeholder="Tipo Sanguineo"
+          value={tipoSangue}
+          onChangeText={(text) => setTipoSangue(text)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Fator Sanguineo"
+          value={fatorSangue}
+          onChangeText={(text) => setFatorSangue(text)}
         />
       </View>
 
