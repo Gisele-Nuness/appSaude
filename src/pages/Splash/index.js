@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, Image, Pressable } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
-import * as Animatable from "react-native-animatable";
 import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -12,15 +11,11 @@ export default function Splash() {
   useEffect(() => {
     setTimeout(async () => {
       try {
-        const recuperarDados = await AsyncStorage.getItem("recuperarDados"); // Espera a Promise ser resolvida
-        console.log(recuperarDados);
-
-        if (recuperarDados === null) {
-        
-          navigation.navigate("Cadastro");
-        } else {
-          
+        const usuarioSalvo = await AsyncStorage.getItem("dadosUsuario");
+        if (usuarioSalvo) {
           navigation.navigate("Home");
+        } else {
+          navigation.navigate("Cadastro");
         }
       } catch (error) {
         console.error("Erro ao recuperar dados:", error);
@@ -31,17 +26,16 @@ export default function Splash() {
 
   return (
     <View style={styles.container}>
-      <Animatable.View animation="bounceInDown">
+      <View style={styles.header}>
         <Image
-          source={require("../../../assets/gifCapivara.gif")}
+          source={require("../../../assets/splash-icon.png")}
           style={styles.img}
         />
         <Image
           source={require("../../../assets/carregando.gif")}
           style={styles.carregando}
         />
-      </Animatable.View>
-
+      </View>
       <StatusBar style="auto" />
     </View>
   );

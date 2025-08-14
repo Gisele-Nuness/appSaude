@@ -14,23 +14,6 @@ export default StyleSheet.create({
       height: 100,
     },
 
-    imgGalhos: {
-      width: '100%',
-      height: 200,
-      position: 'absolute',
-      bottom: -30,
-    },
-
-    containerImg: {
-      position: 'absolute',
-      top: -80,
-      left: -30,
-    },
-
-    imgPreguica: {
-      width: 150,
-      height: 150,
-    },
 
     containerTitulo: {
       alignItems: 'center',

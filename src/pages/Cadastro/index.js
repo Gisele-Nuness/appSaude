@@ -96,11 +96,10 @@ export default function Cadastro() {
       </View>
 
       <Pressable onPress={salvarDados}>
-        <Animatable.Text animation="rubberBand" style={styles.btnHome}>
+        <Text style={styles.btnHome}>
           Cadastrar
-        </Animatable.Text>
+        </Text>
       </Pressable>
-      <StatusBar style="auto" />
 
       <Modal
         visible={modal}
