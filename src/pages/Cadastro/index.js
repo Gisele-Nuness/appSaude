@@ -4,6 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "react-native-web";
+import { Picker } from '@react-native-picker/picker';
+
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -13,13 +15,12 @@ export default function Cadastro() {
   const [peso, setPeso] = useState("");
   const [altura, setAltura] = useState("");
   const [tipoSangue, setTipoSangue] = useState("");
-  const [fatorSangue, setFatorSangue] = useState("");
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
   const salvarDados = async () => {
-    if (!nome || !dataNasc || !peso || !altura || !tipoSangue || !fatorSangue) {
+    if (!nome || !dataNasc || !peso || !altura || !tipoSangue) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
@@ -30,7 +31,6 @@ export default function Cadastro() {
       peso,
       altura,
       tipoSangue,
-      fatorSangue,
     };
 
     try {
@@ -80,25 +80,26 @@ export default function Cadastro() {
           onChangeText={(text) => setAltura(text)}
         />
 
-        <TextInput
-          style={styles.input}
+        <Picker
+          selectedValue={tipoSangue}
           placeholder="Tipo Sanguineo"
-          value={tipoSangue}
-          onChangeText={(text) => setTipoSangue(text)}
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Fator Sanguineo"
-          value={fatorSangue}
-          onChangeText={(text) => setFatorSangue(text)}
-        />
+          style={styles.picker}
+          onValueChange={(itemValue) => setTipoSangue(itemValue)}
+        >
+          <Picker.Item label="Selecione o tipo sanguíneo" value="" />
+          <Picker.Item label="A+" value="A+" />
+          <Picker.Item label="A-" value="A-" />
+          <Picker.Item label="B+" value="B+" />
+          <Picker.Item label="B-" value="B-" />
+          <Picker.Item label="AB+" value="AB+" />
+          <Picker.Item label="AB-" value="AB-" />
+          <Picker.Item label="O+" value="O+" />
+          <Picker.Item label="O-" value="O-" />
+        </Picker>
       </View>
 
       <Pressable onPress={salvarDados}>
-        <Text style={styles.btnHome}>
-          Cadastrar
-        </Text>
+        <Text style={styles.btnHome}>Cadastrar</Text>
       </Pressable>
 
       <Modal
