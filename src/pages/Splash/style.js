@@ -3,23 +3,23 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#f40707ff',
+      backgroundColor: '#b82132',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 100,
       flexDirection: 'column',
-      gap: 10,
     },
 
-    img: {
-      width: 150,
-      height: 150,
-      borderRadius: 150,
+    main: {
+      flex: 1,
+      height: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+
     },
 
-    carregando: {
-      width: 150,
-      height: 50,
+    logo: {
+      width: 300,
+      height: 300,
     },
 
   });

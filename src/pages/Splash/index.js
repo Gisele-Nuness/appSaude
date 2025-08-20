@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { Text, View, Image, Pressable } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -26,17 +25,12 @@ export default function Splash() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={styles.main}>
         <Image
-          source={require("../../../assets/splash-icon.png")}
-          style={styles.img}
-        />
-        <Image
-          source={require("../../../assets/carregando.gif")}
-          style={styles.carregando}
+          source={require("../../../assets/logo.png")}
+          style={styles.logo}
         />
       </View>
-      <StatusBar style="auto" />
     </View>
   );
 }

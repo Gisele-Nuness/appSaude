@@ -3,15 +3,25 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#CCE0AC",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    gap: 20,
   },
 
   header: {
+    height: 80,
     width: "100%",
-    height: 100,
+    justifyContent: "space-between",
+    flexDirection: "row",
+    padding: 5,
+    alignItems: "center",
+    textAlign: "center",
+    backgroundColor: '#b82132',
+  },
+
+  logo: {
+    width: 120,
+    height: 120,
   },
 
   containerTitulo: {
@@ -19,39 +29,35 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
 
-  text: {
-    fontSize: 16,
+  titulo: {
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#FFFFFF",
-    backgroundColor: "#6AA400",
+    color: '#b82132',
     padding: 5,
     textTransform: "uppercase",
-    borderRadius: 10,
   },
 
-  text2: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    backgroundColor: "#6F3A25",
-    padding: 15,
-    textTransform: "uppercase",
-    borderRadius: 10,
+  imgPerfil: {
+    width: 120,
+    height: 120
   },
 
   containerInput: {
-    backgroundColor: "#6AA400",
-    borderRadius: 20,
-    width: "90%",
-    height: 400,
+    backgroundColor: '#b82132',
+    borderTopRightRadius: 80,
+    borderTopLeftRadius: 80,
+    width: "100%",
+    height: 600,
     alignItems: "center",
     justifyContent: "center",
     gap: 22,
+    marginTop: 30
   },
 
   input: {
     borderColor: "#FFFFFF",
     backgroundColor: "#FFFFFF",
+    color: '#b82132',
     borderRadius: 20,
     fontWeight: "bold",
     borderWidth: 1,
@@ -68,7 +74,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     borderColor: "#fff",
     borderWidth: 1,
-    color: "#000",
+    color: '#b82132',
     fontWeight: "bold",
     paddingLeft: 10,
   },
@@ -76,14 +82,23 @@ export default StyleSheet.create({
   btnHome: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#FFFFFF",
-    backgroundColor: "#6AA400",
-    borderWidth: 1,
-    borderColor: "#6AA400",
+    color: '#b82132',
+    backgroundColor: "#fff",
     padding: 10,
-    borderRadius: 20,
+    borderRadius: 15,
     textTransform: "uppercase",
     marginTop: 50,
+    width: 150,
+    textAlign: 'end',
+  },
+
+  iconMais: {
+    width: 30,
+    height: 30,
+    position: "absolute",
+    zIndex: 1,
+    top: 58,
+    left: 15
   },
 
   modal: {

@@ -4,8 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "react-native-web";
-import { Picker } from '@react-native-picker/picker';
-
+import { Picker } from "@react-native-picker/picker";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -47,9 +46,19 @@ export default function Cadastro() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={styles.logo}
+        />
+      </View>
+
       <View style={styles.containerTitulo}>
-        <Text style={styles.text}>Bem-Vindo(a)!</Text>
-        <Text style={styles.text2}>Cadastre-se</Text>
+        <Text style={styles.titulo}>Cadastre-se</Text>
+        <Image
+          source={require("../../../assets/perfil.png")}
+          style={styles.imgPerfil}
+        />
       </View>
 
       <View style={styles.containerInput}>
@@ -61,7 +70,7 @@ export default function Cadastro() {
         />
         <TextInput
           style={styles.input}
-          placeholder="00/00/0000"
+          placeholder="DD/MM/AAAA"
           value={dataNasc}
           onChangeText={(text) => setDataNasc(text)}
         />
@@ -96,11 +105,15 @@ export default function Cadastro() {
           <Picker.Item label="O+" value="O+" />
           <Picker.Item label="O-" value="O-" />
         </Picker>
-      </View>
 
-      <Pressable onPress={salvarDados}>
-        <Text style={styles.btnHome}>Cadastrar</Text>
-      </Pressable>
+        <Pressable onPress={salvarDados}>
+          <Image
+            source={require("../../../assets/plus.png")}
+            style={styles.iconMais}
+          />
+          <Text style={styles.btnHome}>Próximo</Text>
+        </Pressable>
+      </View>
 
       <Modal
         visible={modal}
