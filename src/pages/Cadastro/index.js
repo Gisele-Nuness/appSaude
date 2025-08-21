@@ -24,24 +24,9 @@ export default function Cadastro() {
       return;
     }
 
-    const dadosUsuario = {
-      nome,
-      dataNasc,
-      peso,
-      altura,
-      tipoSangue,
-    };
+    const dadosIniciais = { nome, dataNasc, peso, altura, tipoSangue };
+    navigation.navigate("Cadastro2", { dadosIniciais });
 
-    try {
-      await AsyncStorage.setItem("dadosUsuario", JSON.stringify(dadosUsuario));
-      setLoading(false);
-      setModalMessage("Cadastro realizado com sucesso!!!");
-      setModal(true);
-      navigation.navigate("Home");
-    } catch (e) {
-      setModalMessage("Erro ao salvar os dados no AsyncStorage");
-      setModal(true);
-    }
   };
 
   return (

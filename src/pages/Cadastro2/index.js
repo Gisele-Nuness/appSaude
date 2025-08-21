@@ -1,10 +1,10 @@
 import { Text, View, Pressable, TextInput, Image, Button } from "react-native";
 import styles from "./style";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "react-native-web";
-import { Picker } from "@react-native-picker/picker";
+import  axios  from "axios";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -17,19 +17,38 @@ export default function Cadastro() {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const route = useRoute();
+  const dadosIniciais = route.params?.dadosIniciais ?? {};
+
+  const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+  const buscarEndereco = async () => {
+    if (cep.length === 8) {
+      try {
+        const response = await axios.get(url);
+        setLogradouro(response.data.logradouro || "");
+        setBairro(response.data.bairro || "");
+        setCidade(response.data.localidade || "");
+      } catch (error) {
+        setModalMessage("Erro ao buscar dados do CEP");
+        setModal(true);
+      }
+    }
+  };
 
   const salvarDados = async () => {
-    if (!nome || !dataNasc || !peso || !altura || !tipoSangue) {
+    if (!cep || !logradouro || !numero || !bairro || !cidade) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
 
     const dadosUsuario = {
-      nome,
-      dataNasc,
-      peso,
-      altura,
-      tipoSangue,
+      ...dadosIniciais,
+      cep,
+      logradouro,
+      numero,
+      bairro,
+      cidade,
     };
 
     try {
@@ -54,10 +73,12 @@ export default function Cadastro() {
       </View>
 
       <View style={styles.containerTitulo}>
-        <Image
-          source={require("../../../assets/voltar.png")}
-          style={styles.voltar}
-        />
+        <Pressable onPress={() => navigation.goBack()} style={styles.btnVoltar}>
+          <Image
+            source={require("../../../assets/voltar.png")}
+            style={styles.voltar}
+          />
+        </Pressable>
         <Text style={styles.titulo}>Cadastre-se</Text>
         <Image
           source={require("../../../assets/perfil.png")}
@@ -70,7 +91,8 @@ export default function Cadastro() {
           style={styles.input}
           placeholder="CEP"
           value={cep}
-          onChangeText={(text) => setCep(text)}
+          onChangeText={setCep}
+          onBlur={buscarEndereco}
         />
         <TextInput
           style={styles.input}
