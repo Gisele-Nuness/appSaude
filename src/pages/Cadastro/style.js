@@ -20,8 +20,8 @@ export default StyleSheet.create({
   },
 
   logo: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
   },
 
   containerTitulo: {
@@ -105,7 +105,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Cor de fundo com opacidade
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContainer: {
     backgroundColor: "white",

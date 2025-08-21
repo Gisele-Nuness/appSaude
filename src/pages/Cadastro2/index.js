@@ -34,7 +34,9 @@ export default function Cadastro() {
         setModal(true);
       }
     }
+     console.log(response.data);
   };
+ 
 
   const salvarDados = async () => {
     if (!cep || !logradouro || !numero || !bairro || !cidade) {
@@ -140,7 +142,7 @@ export default function Cadastro() {
         <View style={styles.modal}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalText}>{modalMessage}</Text>
-            <Button title="Fechar" onPress={() => setModal(false)} />
+            <Button title="Fechar" color="#b82132" onPress={() => setModal(false)} />
           </View>
         </View>
       </Modal>

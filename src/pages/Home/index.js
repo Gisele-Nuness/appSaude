@@ -9,14 +9,22 @@ export default function Home() {
   const navigation = useNavigation();
 
   const cards = [
-    { id: 1, nome: "Sangue", imagem: require("../../../assets/favicon.png") },
-    { id: 2, nome: "Agua", imagem: require("../../../assets/favicon.png") },
-    { id: 3, nome: "Medicamentos", imagem: require("../../../assets/favicon.png")},
-    { id: 4, nome: "Alergia", imagem: require("../../../assets/favicon.png") },
-    { id: 5, nome: "Vacinas", imagem: require("../../../assets/favicon.png") },
-    { id: 6, nome: "Fruta", imagem: require("../../../assets/favicon.png") },
-    { id: 7, nome: "Dica", imagem: require("../../../assets/favicon.png") },
-    { id: 8, nome: "Meditação", imagem: require("../../../assets/favicon.png")},
+    { id: 1, nome: "Sangue", imagem: require("../../../assets/calendario.png") },
+    { id: 2, nome: "Agua", imagem: require("../../../assets/plus.png") },
+    {
+      id: 3,
+      nome: "Remedios",
+      imagem: require("../../../assets/calendario.png"),
+    },
+    { id: 4, nome: "Alergias", imagem: require("../../../assets/plus.png") },
+    { id: 5, nome: "undefined", imagem: require("../../../assets/calendario.png") },
+    { id: 6, nome: "Pressão", imagem: require("../../../assets/plus.png") },
+    { id: 7, nome: "Imc", imagem: require("../../../assets/calendario.png") },
+    {id: 8, nome: "Vacinas", imagem: require("../../../assets/plus.png") },
+    {id: 9, nome: "Meditação", imagem: require("../../../assets/calendario.png") },
+    {id: 10, nome: "Fruta", imagem: require("../../../assets/plus.png") },
+    {id: 11, nome: "Dica", imagem: require("../../../assets/calendario.png") },
+    {id: 12, nome: "Emergencia", imagem: require("../../../assets/plus.png") },
   ];
 
   const sair = async () => {
@@ -33,13 +41,13 @@ export default function Home() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={require("../../../assets/favicon.png")}
+          source={require("../../../assets/logo.png")}
           style={styles.logo}
         />
 
         <Image
-          source={require("../../../assets/favicon.png")}
-          style={styles.logo}
+          source={require("../../../assets/menu.png")}
+          style={styles.menu}
         />
       </View>
 
@@ -56,7 +64,7 @@ export default function Home() {
             </Pressable>
           )}
           keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
+          numColumns={3}
         />
       </View>
 
