@@ -9,22 +9,22 @@ export default function Home() {
   const navigation = useNavigation();
 
   const cards = [
-    { id: 1, nome: "Sangue", imagem: require("../../../assets/calendario.png") },
-    { id: 2, nome: "Agua", imagem: require("../../../assets/plus.png") },
+    { id: 1, nome: "Sangue", imagem: require("../../../assets/sangue.png") },
+    { id: 2, nome: "Agua", imagem: require("../../../assets/agua.png") },
     {
       id: 3,
       nome: "Remedios",
-      imagem: require("../../../assets/calendario.png"),
+      imagem: require("../../../assets/remedio.png"),
     },
-    { id: 4, nome: "Alergias", imagem: require("../../../assets/plus.png") },
-    { id: 5, nome: "undefined", imagem: require("../../../assets/calendario.png") },
-    { id: 6, nome: "Pressão", imagem: require("../../../assets/plus.png") },
-    { id: 7, nome: "Imc", imagem: require("../../../assets/calendario.png") },
-    {id: 8, nome: "Vacinas", imagem: require("../../../assets/plus.png") },
-    {id: 9, nome: "Meditação", imagem: require("../../../assets/calendario.png") },
-    {id: 10, nome: "Fruta", imagem: require("../../../assets/plus.png") },
-    {id: 11, nome: "Dica", imagem: require("../../../assets/calendario.png") },
-    {id: 12, nome: "Emergencia", imagem: require("../../../assets/plus.png") },
+    { id: 4, nome: "Alergias", imagem: require("../../../assets/alergias.png") },
+    { id: 5, nome: "Glicemia", imagem: require("../../../assets/diabete.png") },
+    { id: 6, nome: "Pressão", imagem: require("../../../assets/pressao.png") },
+    { id: 7, nome: "Imc", imagem: require("../../../assets/imc.png") },
+    {id: 8, nome: "Vacinas", imagem: require("../../../assets/vacina.png") },
+    {id: 9, nome: "Meditação", imagem: require("../../../assets/medicamento.png") },
+    {id: 10, nome: "Fruta", imagem: require("../../../assets/fruta.png") },
+    {id: 11, nome: "Dica", imagem: require("../../../assets/dica.png") },
+    {id: 12, nome: "Emergencia", imagem: require("../../../assets/emergencia.png") },
   ];
 
   const sair = async () => {

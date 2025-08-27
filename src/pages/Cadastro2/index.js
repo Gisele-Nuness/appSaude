@@ -3,7 +3,7 @@ import styles from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Modal } from "react-native-web";
+import { Modal } from "react-native";
 import  axios  from "axios";
 
 export default function Cadastro() {
@@ -29,12 +29,13 @@ export default function Cadastro() {
         setLogradouro(response.data.logradouro || "");
         setBairro(response.data.bairro || "");
         setCidade(response.data.localidade || "");
+        console.log(response.data);
       } catch (error) {
         setModalMessage("Erro ao buscar dados do CEP");
         setModal(true);
       }
     }
-     console.log(response.data);
+   
   };
  
 
@@ -58,7 +59,7 @@ export default function Cadastro() {
       setLoading(false);
       setModalMessage("Cadastro realizado com sucesso!!!");
       setModal(true);
-      navigation.navigate("Home");
+      navigation.navigate("Cadastro3");
     } catch (e) {
       setModalMessage("Erro ao salvar os dados no AsyncStorage");
       setModal(true);

@@ -5,7 +5,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Splash from "./src/pages/Splash";
 import Cadastro from "./src/pages/Cadastro";
 import Cadastro2 from "./src/pages/Cadastro2";
+import Cadastro3 from "./src/pages/Cadastro3";
+import Login from "./src/pages/Login";
 import Home from "./src/pages/Home";
+
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -20,6 +23,8 @@ export default function App() {
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="Cadastro2" component={Cadastro2} />
+        <Stack.Screen name="Cadastro3" component={Cadastro3} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
