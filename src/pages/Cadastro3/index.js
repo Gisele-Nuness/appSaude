@@ -1,39 +1,52 @@
 import React, { useState } from "react";
 import styles from "./style";
-import { 
-  View, Text, TextInput, TouchableOpacity, Modal, Alert, StatusBar, Image, ScrollView, Pressable
+import {
+  View,
+  Text,
+  TextInput,
+  Modal,
+  Alert,
+  Image,
+  ScrollView,
+  Pressable,
+  Button,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
 
 export default function Cadastro3() {
   const navigation = useNavigation();
   const route = useRoute();
   const dadosAnteriores = route.params?.dadosAnteriores || {};
+  const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
-  const [form, setForm] = useState({ 
-    email: "", 
-    senha: "", 
-    confirmaSenha: "" 
+  const [form, setForm] = useState({
+    email: "",
+    senha: "",
+    confirmaSenha: "",
   });
-  const [modalVisible, setModalVisible] = useState(false);
 
   const salvarDados = async () => {
     if (!form.email || !form.senha || !form.confirmaSenha) {
-      Alert.alert("Erro", "Preencha todos os campos!");
+      setModalMessage("Preencha todos os dados");
+      setModal(true);
       return;
     }
     if (!/\S+@\S+\.\S+/.test(form.email)) {
-      Alert.alert("Erro", "Digite um email válido!");
+      setModalMessage("Erro", "Digite um email válido!");
+      setModal(true);
       return;
     }
     if (form.senha.length < 6) {
-      Alert.alert("Erro", "A senha deve ter pelo menos 6 caracteres!");
+      setModalMessage("A senha deve ter pelo menos 6 caracteres!");
+      setModal(true);
       return;
     }
     if (form.senha !== form.confirmaSenha) {
-      Alert.alert("Erro", "As senhas não coincidem!");
+      setModalMessage("As senhas não coincidem!");
+      setModal(true);
       return;
     }
 
@@ -41,12 +54,18 @@ export default function Cadastro3() {
       const usuarioCompleto = {
         ...dadosAnteriores,
         email: form.email,
-        senha: form.senha
+        senha: form.senha,
       };
-      await AsyncStorage.setItem("usuario", JSON.stringify(usuarioCompleto));
+      await AsyncStorage.setItem(
+        "usuarioCompleto",
+        JSON.stringify(usuarioCompleto)
+      );
       setModalVisible(true);
+      setLoading(false);
+      setModalMessage("Cadastro realizado com sucesso!!!");
+      navigation.navigate("Login");
     } catch (e) {
-      Alert.alert("Erro", "Não foi possível salvar os dados");
+      setModalMessage("Erro", "Não foi possível salvar os dados");
     }
   };
 
@@ -61,7 +80,10 @@ export default function Cadastro3() {
         </View>
 
         <View style={styles.containerTitulo}>
-          <Pressable onPress={() => navigation.goBack()} style={styles.btnVoltar}>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={styles.btnVoltar}
+          >
             <Image
               source={require("../../../assets/voltar.png")}
               style={styles.voltar}
@@ -75,29 +97,31 @@ export default function Cadastro3() {
         </View>
 
         <View style={styles.containerInput}>
-          <TextInput 
-            style={styles.input} 
-            value={form.email} 
-            onChangeText={(txt) => setForm(prev => ({ ...prev, email: txt }))} 
-            placeholder="Digite seu email" 
-            keyboardType="email-address" 
-            autoCapitalize="none" 
+          <TextInput
+            style={styles.input}
+            value={form.email}
+            onChangeText={(txt) => setForm((prev) => ({ ...prev, email: txt }))}
+            placeholder="Digite seu email"
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
-          
-          <TextInput 
-            style={styles.input} 
-            value={form.senha} 
-            onChangeText={(txt) => setForm(prev => ({ ...prev, senha: txt }))} 
-            placeholder="Digite sua senha" 
-            secureTextEntry 
+
+          <TextInput
+            style={styles.input}
+            value={form.senha}
+            onChangeText={(txt) => setForm((prev) => ({ ...prev, senha: txt }))}
+            placeholder="Digite sua senha"
+            secureTextEntry
           />
-          
-          <TextInput 
-            style={styles.input} 
-            value={form.confirmaSenha} 
-            onChangeText={(txt) => setForm(prev => ({ ...prev, confirmaSenha: txt }))} 
-            placeholder="Confirme sua senha" 
-            secureTextEntry 
+
+          <TextInput
+            style={styles.input}
+            value={form.confirmaSenha}
+            onChangeText={(txt) =>
+              setForm((prev) => ({ ...prev, confirmaSenha: txt }))
+            }
+            placeholder="Confirme sua senha"
+            secureTextEntry
           />
 
           <Pressable onPress={salvarDados} style={styles.btnContainer}>
@@ -110,24 +134,23 @@ export default function Cadastro3() {
         </View>
       </ScrollView>
 
-      <Modal transparent visible={modalVisible} animationType="fade">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Cadastro concluído com sucesso!</Text>
-            <TouchableOpacity 
-              style={styles.modalButton} 
-              onPress={() => {
-                setModalVisible(false);
-                setTimeout(() => navigation.replace("Login"), 200);
-              }}
-            >
-              <Text style={styles.modalButtonText}>OK</Text>
-            </TouchableOpacity>
+      <Modal
+        visible={modal}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setModal(false)}
+      >
+        <View style={styles.modal}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>{modalMessage}</Text>
+            <Button
+              title="Fechar"
+              color="#b82132"
+              onPress={() => setModal(false)}
+            />
           </View>
         </View>
       </Modal>
-
-      <StatusBar style="auto" />
     </View>
   );
 }

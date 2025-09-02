@@ -56,7 +56,9 @@ export default function Cadastro() {
     }
 
     if (!isValidDateBR(dataNasc)) {
-      setModalMessage("Data inválida. Use o formato DD/MM/AAAA e uma data válida.");
+      setModalMessage(
+        "Data inválida. Use o formato DD/MM/AAAA e uma data válida."
+      );
       setModal(true);
       return;
     }
@@ -73,6 +75,16 @@ export default function Cadastro() {
           style={styles.logo}
         />
       </View>
+
+      <Pressable
+        onPress={() => navigation.navigate("Login")}
+        style={styles.btnVoltar}
+      >
+        <Image
+          source={require("../../../assets/voltar.png")}
+          style={styles.voltar}
+        />
+      </Pressable>
 
       <View style={styles.containerTitulo}>
         <Text style={styles.titulo}>Cadastre-se</Text>
@@ -147,7 +159,11 @@ export default function Cadastro() {
         <View style={styles.modal}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalText}>{modalMessage}</Text>
-            <Button title="Fechar" color="#b82132" onPress={() => setModal(false)} />
+            <Button
+              title="Fechar"
+              color="#b82132"
+              onPress={() => setModal(false)}
+            />
           </View>
         </View>
       </Modal>

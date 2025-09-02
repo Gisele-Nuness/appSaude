@@ -56,8 +56,6 @@ export default function Cadastro() {
 
     try {
       await AsyncStorage.setItem("dadosUsuario", JSON.stringify(dadosUsuario));
-      setLoading(false);
-      setModalMessage("Cadastro realizado com sucesso!!!");
       setModal(true);
       navigation.navigate("Cadastro3");
     } catch (e) {

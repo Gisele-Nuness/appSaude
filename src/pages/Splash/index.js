@@ -14,11 +14,11 @@ export default function Splash() {
         if (usuarioSalvo) {
           navigation.navigate("Home");
         } else {
-          navigation.navigate("Cadastro");
+          navigation.navigate("Login");
         }
       } catch (error) {
         console.error("Erro ao recuperar dados:", error);
-        navigation.navigate("Cadastro");
+        navigation.navigate("Login");
       }
     }, 5000);
   }, [navigation]);

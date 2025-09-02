@@ -24,6 +24,7 @@ export default StyleSheet.create({
     width: 150,
     height: 150,
     resizeMode: 'contain',
+    right: 100,
   },
 
   containerTitulo: {
@@ -116,40 +117,22 @@ export default StyleSheet.create({
     zIndex: 1,
   },
 
-  modalOverlay: {
+  modal: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-
-  modalContent: {
+  modalContainer: {
     backgroundColor: "white",
-    padding: 30,
-    borderRadius: 15,
+    padding: 20,
+    borderRadius: 10,
     width: "80%",
     alignItems: "center",
   },
-
   modalText: {
     fontSize: 18,
-    marginBottom: 25,
+    marginBottom: 20,
     textAlign: "center",
-    fontWeight: "bold",
-    color: "#b82132",
-  },
-
-  modalButton: {
-    backgroundColor: "#b82132",
-    padding: 15,
-    borderRadius: 10,
-    width: 100,
-    alignItems: "center",
-  },
-
-  modalButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
   },
 });

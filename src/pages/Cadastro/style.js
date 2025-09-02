@@ -24,6 +24,17 @@ export default StyleSheet.create({
     height: 150,
   },
 
+    btnVoltar: {
+    position: "absolute",
+    top: 10,
+    left: -100,
+  },
+
+  voltar: {
+    width: 30,
+    height: 30,
+  },
+
   containerTitulo: {
     alignItems: "center",
     justifyContent: "center",
