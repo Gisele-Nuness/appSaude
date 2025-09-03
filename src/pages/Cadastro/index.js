@@ -110,7 +110,7 @@ export default function Cadastro() {
 
         <TextInput
           style={styles.input}
-          placeholder="Peso"
+          placeholder="Peso  (ex: 70.5)"
           keyboardType="numeric"
           value={peso}
           onChangeText={(text) => setPeso(text)}
@@ -118,7 +118,7 @@ export default function Cadastro() {
 
         <TextInput
           style={styles.input}
-          placeholder="Altura"
+          placeholder="Altura (ex: 1.75)"
           keyboardType="numeric"
           value={altura}
           onChangeText={(text) => setAltura(text)}
