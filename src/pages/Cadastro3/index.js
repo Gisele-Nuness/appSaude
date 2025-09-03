@@ -81,7 +81,7 @@ export default function Cadastro3() {
       await api.post("/users", payload);
       setModalMessage("Cadastro realizado com sucesso!");
       setModal(true);
-      // após fechar modal, ir para login
+      
     } catch (e) {
       const msg =
         e?.response?.data?.message ||
