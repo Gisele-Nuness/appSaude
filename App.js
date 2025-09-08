@@ -10,13 +10,12 @@ import Login from "./src/pages/Login";
 import Home from "./src/pages/Home";
 
 
-
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Cadastro"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
         }}

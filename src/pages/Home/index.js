@@ -4,6 +4,7 @@ import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-web";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "../Header";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -39,17 +40,7 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require("../../../assets/logo.png")}
-          style={styles.logo}
-        />
-
-        <Image
-          source={require("../../../assets/menu.png")}
-          style={styles.menu}
-        />
-      </View>
+      <Header />
 
       <View style={styles.cardsContainer}>
         <FlatList
