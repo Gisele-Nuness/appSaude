@@ -69,7 +69,7 @@ export default function Cadastro2() {
           <Image source={require("../../../assets/voltar.png")} style={styles.voltar} />
         </Pressable>
         <Text style={styles.titulo}>Cadastre-se</Text>
-        <Image source={require("../../../assets/perfil.png")} style={styles.imgPerfil} />
+        <Image source={require("../../../assets/localizacao.png")} style={styles.imgPerfil} />
       </View>
 
       <View style={styles.containerInput}>

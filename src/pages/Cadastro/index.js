@@ -41,6 +41,7 @@ export default function Cadastro() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
+      base64: false
     });
 
     if (!resultado.canceled) {
@@ -57,6 +58,7 @@ export default function Cadastro() {
       allowsEditing: true,
       quality: 1,
       aspect: [4, 3],
+      base64: false
     });
 
     if (!resultado.canceled) {
@@ -111,7 +113,7 @@ export default function Cadastro() {
       return;
     }
 
-    const dadosIniciais = { nome, dataNasc, peso, altura, tipoSangue };
+    const dadosIniciais = { nome, dataNasc, peso, altura, tipoSangue, imagem };
     navigation.navigate("Cadastro2", { dadosIniciais });
   };
 

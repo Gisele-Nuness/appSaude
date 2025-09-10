@@ -104,7 +104,7 @@ export default StyleSheet.create({
     padding: 15,
     borderRadius: 15,
     textTransform: "uppercase",
-    width: 250,
+    width: 200,
     textAlign: "center",
     paddingLeft: 40,
   },

@@ -23,7 +23,7 @@ export default function Home() {
     { id: 7, nome: "Imc", imagem: require("../../../assets/imc.png") },
     {id: 8, nome: "Vacinas", imagem: require("../../../assets/vacina.png") },
     {id: 9, nome: "Meditação", imagem: require("../../../assets/medicamento.png") },
-    {id: 10, nome: "Fruta", imagem: require("../../../assets/fruta.png") },
+    {id: 10, nome: "Frutas", imagem: require("../../../assets/fruta.png") },
     {id: 11, nome: "Dica", imagem: require("../../../assets/dica.png") },
     {id: 12, nome: "Emergencia", imagem: require("../../../assets/emergencia.png") },
   ];

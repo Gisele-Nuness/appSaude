@@ -10,6 +10,7 @@ import {
   Pressable,
   Button,
   Alert,
+  Platform,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "../../services/api";
@@ -59,29 +60,58 @@ export default function Cadastro3() {
       return;
     }
 
-    const payload = {
-      // passo 1
-      nome: dadosAnteriores.nome,
-      data_nasc: normalizarDataBR(dadosAnteriores.dataNasc),
-      peso: dadosAnteriores.peso ? Number(dadosAnteriores.peso) : null,
-      altura: dadosAnteriores.altura ? Number(dadosAnteriores.altura) : null,
-      tipo_sangue: dadosAnteriores.tipoSangue,
-      // passo 2
-      cep: dadosAnteriores.cep,
-      logradouro: dadosAnteriores.logradouro,
-      numero: dadosAnteriores.numero,
-      bairro: dadosAnteriores.bairro,
-      cidade: dadosAnteriores.cidade,
-      // passo 3
-      email: form.email,
-      senha: form.senha,
-    };
+    console.log(dadosAnteriores.imagem);
+
+    const payload = new FormData();
+
+    // ===== TRATAMENTO DA IMAGEM (mobile vs web) =====
+    if (dadosAnteriores.imagem) {
+      try {
+        if (Platform.OS === "web") {
+          // Expo Web retorna blob:/data:, então convertimos para File
+          const resp = await fetch(dadosAnteriores.imagem);
+          const blob = await resp.blob();
+          const ext = (blob.type && blob.type.split("/")[1]) || "jpg";
+          const file = new File([blob], `foto.${ext}`, { type: blob.type || "image/jpeg" });
+          payload.append("caminho_foto", file);
+        } else {
+          // iOS/Android: enviar { uri, name, type }
+          const uri =
+            Platform.OS === "ios"
+              ? dadosAnteriores.imagem.replace("file://", "")
+              : dadosAnteriores.imagem;
+
+          payload.append("caminho_foto", {
+            uri,
+            type: "image/jpeg",
+            name: "foto.jpg",
+          });
+        }
+      } catch (err) {
+        console.warn("Falha ao preparar a imagem:", err);
+      }
+    }
+    // ================================================
+
+    payload.append("nome", dadosAnteriores.nome);
+    payload.append("data_nasc", normalizarDataBR(dadosAnteriores.dataNasc));
+    // Para FormData é melhor mandar string vazia quando não houver valor
+    payload.append("peso", dadosAnteriores.peso ? String(dadosAnteriores.peso) : "");
+    payload.append("altura", dadosAnteriores.altura ? String(dadosAnteriores.altura) : "");
+    payload.append("tipo_sangue", dadosAnteriores.tipoSangue || "");
+    payload.append("cep", dadosAnteriores.cep || "");
+    payload.append("logradouro", dadosAnteriores.logradouro || "");
+    payload.append("numero", dadosAnteriores.numero || "");
+    payload.append("bairro", dadosAnteriores.bairro || "");
+    payload.append("cidade", dadosAnteriores.cidade || "");
+    payload.append("email", form.email);
+    payload.append("senha", form.senha);
 
     try {
+      // ⚠️ NÃO enviar headers 'Content-Type' manualmente — o axios define o boundary
       await api.post("/users", payload);
       setModalMessage("Cadastro realizado com sucesso!");
       setModal(true);
-      
     } catch (e) {
       const msg =
         e?.response?.data?.message ||
@@ -111,7 +141,7 @@ export default function Cadastro3() {
             <Image source={require("../../../assets/voltar.png")} style={styles.voltar} />
           </Pressable>
           <Text style={styles.titulo}>Cadastre-se</Text>
-          <Image source={require("../../../assets/perfil.png")} style={styles.imgPerfil} />
+          <Image source={require("../../../assets/cadeado.png")} style={styles.imgPerfil} />
         </View>
 
         <View style={styles.containerInput}>
@@ -142,7 +172,7 @@ export default function Cadastro3() {
 
           <Pressable onPress={finalizarCadastro} style={styles.btnContainer}>
             <Image source={require("../../../assets/plus.png")} style={styles.iconMais} />
-            <Text style={styles.btnHome}>Concluir Cadastro</Text>
+            <Text style={styles.btnHome}>Cadastrar</Text>
           </Pressable>
         </View>
       </ScrollView>
