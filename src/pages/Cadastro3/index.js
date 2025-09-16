@@ -30,12 +30,11 @@ export default function Cadastro3() {
   });
 
   const normalizarDataBR = (s) => {
-    // "DD/MM/AAAA" -> "AAAA-MM-DD"
     if (/^\d{2}\/\d{2}\/\d{4}$/.test(s)) {
       const [dd, mm, yyyy] = s.split("/");
       return `${yyyy}-${mm}-${dd}`;
     }
-    return s; // se já vier "AAAA-MM-DD"
+    return s;
   };
 
   const finalizarCadastro = async () => {
@@ -59,8 +58,6 @@ export default function Cadastro3() {
       setModal(true);
       return;
     }
-
-    console.log(dadosAnteriores.imagem);
 
     const payload = new FormData();
 
@@ -108,7 +105,6 @@ export default function Cadastro3() {
     payload.append("senha", form.senha);
 
     try {
-      // ⚠️ NÃO enviar headers 'Content-Type' manualmente — o axios define o boundary
       await api.post("/users", payload);
       setModalMessage("Cadastro realizado com sucesso!");
       setModal(true);

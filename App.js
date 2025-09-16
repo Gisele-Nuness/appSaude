@@ -8,6 +8,7 @@ import Cadastro2 from "./src/pages/Cadastro2";
 import Cadastro3 from "./src/pages/Cadastro3";
 import Login from "./src/pages/Login";
 import Home from "./src/pages/Home";
+import Perfil from "./src/pages/Perfil";
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Cadastro3" component={Cadastro3} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Perfil" component={Perfil} />
       </Stack.Navigator>
     </NavigationContainer>
   );

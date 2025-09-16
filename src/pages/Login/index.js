@@ -1,9 +1,16 @@
-import { Text, View, Image, Pressable, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  Image,
+  Pressable,
+  Button,
+  Modal,
+  TextInput,
+} from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { TextInput } from "react-native-web";
-import { Modal } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { api } from "../../services/api";
 
 export default function Login() {
@@ -14,33 +21,48 @@ export default function Login() {
   const [modal, setModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  const entrar = async () => {
-    if (!email || !senha) {
-      setModalMessage("Informe email e senha.");
-      setModal(true);
-      return;
-    }
-    try {
-      const resp = await api.post("/login", { email, senha });
-      if (resp?.data?.ok) {
-        setModalMessage("Login realizado com sucesso!");
-        setModal(true);
-        
-      } else {
-        setModalMessage("Credenciais inválidas.");
-        setModal(true);
-      }
-    } catch (e) {
-      const msg = e?.response?.data?.message || "Erro ao realizar login.";
-      setModalMessage(msg);
-      setModal(true);
-    }
+  const abrirModal = (msg) => {
+    setModalMessage(msg);
+    setModal(true);
   };
 
   const fecharModal = () => {
     setModal(false);
-    if (modalMessage.includes("sucesso")) {
+    if (modalMessage.toLowerCase().includes("sucesso")) {
       navigation.navigate("Home");
+    }
+  };
+
+  const entrar = async () => {
+    if (!email || !senha) {
+      abrirModal("Informe email e senha.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      abrirModal("Digite um email válido.");
+      return;
+    }
+    if (senha.length < 6) {
+      abrirModal("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+
+    try {
+      const resp = await api.post("/login", { email, senha });
+
+      if (resp?.data?.ok && resp?.data?.user) {
+        const user = resp.data.user;
+
+        // ✅ salva apenas o id do usuário
+        await AsyncStorage.setItem("@userId", String(user.id));
+
+        abrirModal("Login realizado com sucesso!");
+      } else {
+        abrirModal(resp?.data?.message || "Credenciais inválidas.");
+      }
+    } catch (e) {
+      const msg = e?.response?.data?.message || "Erro ao realizar login.";
+      abrirModal(msg);
     }
   };
 
@@ -58,10 +80,12 @@ export default function Login() {
       <View style={styles.containerInput}>
         <TextInput
           style={styles.input}
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
+          keyboardType="email-address"
+          placeholderTextColor="#b82132"
         />
         <TextInput
           style={styles.input}
@@ -69,6 +93,7 @@ export default function Login() {
           value={senha}
           onChangeText={setSenha}
           secureTextEntry
+          placeholderTextColor="#b82132"
         />
 
         <View style={styles.containerBtn}>

@@ -28,15 +28,7 @@ export default function Home() {
     {id: 12, nome: "Emergencia", imagem: require("../../../assets/emergencia.png") },
   ];
 
-  const sair = async () => {
-    try {
-      await AsyncStorage.clear();
-      console.log("Dados limpos com sucesso!");
-      navigation.navigate("Splash");
-    } catch (error) {
-      console.error("Erro ao limpar os dados:", error);
-    }
-  };
+
 
   return (
     <View style={styles.container}>
@@ -59,9 +51,7 @@ export default function Home() {
         />
       </View>
 
-      <Pressable style={styles.sairButton} onPress={sair}>
-        <Text style={styles.sairButtonText}>Sair</Text>
-      </Pressable>
+
     </View>
   );
 }
