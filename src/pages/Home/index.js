@@ -4,7 +4,7 @@ import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-web";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Header from "../Header";
+import Header from "../../Components/Header";
 
 export default function Home() {
   const navigation = useNavigation();

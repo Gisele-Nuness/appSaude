@@ -290,6 +290,8 @@ export default function Perfil() {
       payload.append("senha", senha.novaSenha);
     }
 
+    payload.append("_method", "PUT");
+
     try {
       const userId = await AsyncStorage.getItem("@userId");
       if (!userId) {
@@ -305,7 +307,7 @@ export default function Perfil() {
           ? { headers: {} } // NÃO force Content-Type no web
           : { headers: { "Content-Type": "multipart/form-data" } };
 
-      await api.put(`/users/${userId}`, payload, cfg);
+      await api.post(`/users/${userId}`, payload, cfg);
 
       setModalMsg({ visivel: true, texto: "Perfil atualizado com sucesso!" });
     } catch (e) {
