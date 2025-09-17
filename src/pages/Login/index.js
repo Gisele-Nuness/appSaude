@@ -53,7 +53,6 @@ export default function Login() {
       if (resp?.data?.ok && resp?.data?.user) {
         const user = resp.data.user;
 
-        // ✅ salva apenas o id do usuário
         await AsyncStorage.setItem("@userId", String(user.id));
 
         abrirModal("Login realizado com sucesso!");
@@ -86,6 +85,7 @@ export default function Login() {
           autoCapitalize="none"
           keyboardType="email-address"
           placeholderTextColor="#b82132"
+          
         />
         <TextInput
           style={styles.input}

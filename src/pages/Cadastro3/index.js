@@ -61,18 +61,16 @@ export default function Cadastro3() {
 
     const payload = new FormData();
 
-    // ===== TRATAMENTO DA IMAGEM (mobile vs web) =====
     if (dadosAnteriores.imagem) {
       try {
         if (Platform.OS === "web") {
-          // Expo Web retorna blob:/data:, então convertimos para File
           const resp = await fetch(dadosAnteriores.imagem);
           const blob = await resp.blob();
           const ext = (blob.type && blob.type.split("/")[1]) || "jpg";
           const file = new File([blob], `foto.${ext}`, { type: blob.type || "image/jpeg" });
           payload.append("caminho_foto", file);
         } else {
-          // iOS/Android: enviar { uri, name, type }
+
           const uri =
             Platform.OS === "ios"
               ? dadosAnteriores.imagem.replace("file://", "")
@@ -88,11 +86,9 @@ export default function Cadastro3() {
         console.warn("Falha ao preparar a imagem:", err);
       }
     }
-    // ================================================
 
     payload.append("nome", dadosAnteriores.nome);
     payload.append("data_nasc", normalizarDataBR(dadosAnteriores.dataNasc));
-    // Para FormData é melhor mandar string vazia quando não houver valor
     payload.append("peso", dadosAnteriores.peso ? String(dadosAnteriores.peso) : "");
     payload.append("altura", dadosAnteriores.altura ? String(dadosAnteriores.altura) : "");
     payload.append("tipo_sangue", dadosAnteriores.tipoSangue || "");
