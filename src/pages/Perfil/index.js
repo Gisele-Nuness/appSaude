@@ -12,11 +12,12 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { api } from "../../services/api";
 import styles from "./style";
+import Foto from "../../Controller/Foto";
+import { ModalEscolhaFoto } from "../../Controller/Foto";
 
 const getPublicBaseURL = () => {
   const base = api?.defaults?.baseURL || "";
@@ -106,50 +107,6 @@ export default function Perfil() {
     return true;
   };
 
-  const solicitarPermissoes = async () => {
-    const camera = await ImagePicker.requestCameraPermissionsAsync();
-    const galeria = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (camera.status !== "granted" || galeria.status !== "granted") {
-      Alert.alert(
-        "Permissão negada",
-        "É necessário permitir acesso à câmera e galeria."
-      );
-      return false;
-    }
-    return true;
-  };
-
-  const tirarFoto = async () => {
-    const ok = await solicitarPermissoes();
-    if (!ok) return;
-    const resultado = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-      base64: false,
-    });
-    if (!resultado.canceled) {
-      setImagem(resultado.assets[0].uri);
-      setAbrirEscolhaFoto(false);
-    }
-  };
-
-  const escolherDaGaleria = async () => {
-    const ok = await solicitarPermissoes();
-    if (!ok) return;
-    const resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-      aspect: [4, 3],
-      base64: false,
-    });
-    if (!resultado.canceled) {
-      setImagem(resultado.assets[0].uri);
-      setAbrirEscolhaFoto(false);
-    }
-  };
-
   const carregarPerfil = useCallback(async () => {
     try {
       const userId = await AsyncStorage.getItem("@userId");
@@ -201,7 +158,6 @@ export default function Perfil() {
     carregarPerfil();
   }, [carregarPerfil]);
 
-
   const buscarEndereco = async () => {
     const cepLimpo = (dados.cep || "").replace(/\D/g, "");
     if (cepLimpo.length !== 8) return;
@@ -223,7 +179,6 @@ export default function Perfil() {
       setModalMsg({ visivel: true, texto: "Erro ao buscar dados do CEP." });
     }
   };
-
 
   const salvarAlteracoes = async () => {
     if (!/\S+@\S+\.\S+/.test(dados.email)) {
@@ -544,32 +499,12 @@ export default function Perfil() {
           </View>
         </View>
       </Modal>
-
-      <Modal
-        visible={abrirEscolhaFoto}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setAbrirEscolhaFoto(false)}
-      >
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>Alterar foto do perfil</Text>
-            <View style={{ gap: 10, width: "100%" }}>
-              <Button title="Tirar foto" color="#b82132" onPress={tirarFoto} />
-              <Button
-                title="Escolher da galeria"
-                color="#b82132"
-                onPress={escolherDaGaleria}
-              />
-              <Button
-                title="Cancelar"
-                color="#888"
-                onPress={() => setAbrirEscolhaFoto(false)}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <ModalEscolhaFoto
+        visivel={abrirEscolhaFoto}
+        aoFechar={() => setAbrirEscolhaFoto(false)}
+        setImagem={setImagem}
+        setAbrirEscolhaFoto={setAbrirEscolhaFoto}
+      />
     </View>
   );
 }

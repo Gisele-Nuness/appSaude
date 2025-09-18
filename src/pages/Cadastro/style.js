@@ -53,15 +53,6 @@ export default StyleSheet.create({
     height: 120
   },
 
-  galeria: {
-    width: '100',
-  },
-
-  imgGaleria: {
-    width: 30,
-    height: 30
-  },
-
   imagem: {
     width: 120,
     height: 120,

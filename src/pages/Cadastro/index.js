@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Modal } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
+import { ModalEscolhaFoto } from "../../Controller/Foto";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -17,54 +18,7 @@ export default function Cadastro() {
   const [modal, setModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [imagem, setImagem] = useState(null);
-
-  const solicitarPermissoes = async () => {
-    const camera = await ImagePicker.requestCameraPermissionsAsync();
-    const galeria = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (camera.status !== "granted" || galeria.status !== "granted") {
-      Alert.alert(
-        "Permissão negada",
-        "é necessário permitir acesso á camera e galeria."
-      );
-      return false;
-    }
-
-    return true;
-  };
-
-  const tirarFoto = async () => {
-    const permissoes = await solicitarPermissoes();
-    if (!permissoes) return;
-
-    const resultado = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-      base64: false
-    });
-
-    if (!resultado.canceled) {
-      setImagem(resultado.assets[0].uri);
-    }
-  };
-
-  const escolherDaGaleria = async () => {
-    const permissoes = await solicitarPermissoes();
-    if (!permissoes) return;
-
-    const resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-      aspect: [4, 3],
-      base64: false
-    });
-
-    if (!resultado.canceled) {
-      setImagem(resultado.assets[0].uri);
-    }
-  };
+  const [abrirEscolhaFoto, setAbrirEscolhaFoto] = useState(false);
 
   const maskDateBR = (value) => {
     const v = value.replace(/\D/g, "").slice(0, 8);
@@ -138,18 +92,15 @@ export default function Cadastro() {
 
       <View style={styles.containerTitulo}>
         <Text style={styles.titulo}>Cadastre-se</Text>
-        <Pressable onPress={() => tirarFoto()}>
-          {imagem
-            ? <Image source={{ uri: imagem }} style={styles.imagem} />
-            : <Image source={require("../../../assets/perfil.png")} style={styles.imgPerfil} />
-          }
-        </Pressable>
-
-        <Pressable style={styles.galeria} onPress={() => escolherDaGaleria()}>
-          <Image
-            source={require("../../../assets/plus.png")}
-            style={styles.imgGaleria}
-          />
+        <Pressable onPress={() => setAbrirEscolhaFoto(true)}>
+          {imagem ? (
+            <Image source={{ uri: imagem }} style={styles.imagem} />
+          ) : (
+            <Image
+              source={require("../../../assets/perfil.png")}
+              style={styles.imgPerfil}
+            />
+          )}
         </Pressable>
       </View>
 
@@ -226,6 +177,13 @@ export default function Cadastro() {
           </View>
         </View>
       </Modal>
+
+      <ModalEscolhaFoto
+        visivel={abrirEscolhaFoto}
+        aoFechar={() => setAbrirEscolhaFoto(false)}
+        setImagem={setImagem}
+        setAbrirEscolhaFoto={setAbrirEscolhaFoto}
+      />
     </View>
   );
 }

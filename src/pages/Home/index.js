@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Image, Pressable, Text, View, Modal } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
-import { FlatList } from "react-native-web";
+import { FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../../Components/Header";
 
