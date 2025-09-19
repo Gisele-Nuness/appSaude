@@ -16,8 +16,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { api } from "../../services/api";
 import styles from "./style";
-import Foto from "../../Controller/Foto";
 import { ModalEscolhaFoto } from "../../Controller/Foto";
+import Data from "../../Controller/Data";
 
 const getPublicBaseURL = () => {
   const base = api?.defaults?.baseURL || "";
@@ -58,54 +58,6 @@ export default function Perfil() {
     confirmaSenha: "",
   });
 
-  const formatarDataBR = (s) => {
-    if (!s) return "";
-    const onlyDate = s.includes("T") ? s.split("T")[0] : s;
-    if (/^\d{4}-\d{2}-\d{2}$/.test(onlyDate)) {
-      const [yyyy, mm, dd] = onlyDate.split("-");
-      return `${dd}/${mm}/${yyyy}`;
-    }
-    return s;
-  };
-
-  const normalizarDataBR = (s) => {
-    if (!s) return "";
-    if (s.includes("T")) return s.split("T")[0];
-    if (/^\d{2}\/\d{2}\/\d{4}$/.test(s)) {
-      const [dd, mm, yyyy] = s.split("/");
-      return `${yyyy}-${mm}-${dd}`;
-    }
-    return s;
-  };
-
-  const maskDateBR = (value) => {
-    const v = (value || "").replace(/\D/g, "").slice(0, 8);
-    const dia = v.slice(0, 2);
-    const mes = v.slice(2, 4);
-    const ano = v.slice(4, 8);
-    return [dia, mes, ano].filter(Boolean).join("/");
-  };
-
-  const isValidDateBR = (s) => {
-    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(s)) return false;
-    const [dd, mm, yyyy] = s.split("/").map(Number);
-    const d = new Date(yyyy, mm - 1, dd);
-    if (
-      d.getFullYear() !== yyyy ||
-      d.getMonth() !== mm - 1 ||
-      d.getDate() !== dd
-    )
-      return false;
-    const hoje = new Date();
-    if (d > hoje) return false;
-    const limite = new Date(
-      hoje.getFullYear() - 120,
-      hoje.getMonth(),
-      hoje.getDate()
-    );
-    if (d < limite) return false;
-    return true;
-  };
 
   const carregarPerfil = useCallback(async () => {
     try {
@@ -122,7 +74,7 @@ export default function Perfil() {
 
       setDados({
         nome: data?.nome || "",
-        dataNasc: formatarDataBR(data?.data_nasc || ""),
+        dataNasc: Data.formatarDataBR(data?.data_nasc || ""),
         peso: data?.peso || "",
         altura: data?.altura || "",
         tipoSangue: data?.tipo_sangue || "",
@@ -185,7 +137,7 @@ export default function Perfil() {
       setModalMsg({ visivel: true, texto: "Digite um email válido." });
       return;
     }
-    if (dados.dataNasc && !isValidDateBR(dados.dataNasc)) {
+    if (dados.dataNasc && !Data.isValidDateBR(dados.dataNasc)) {
       setModalMsg({ visivel: true, texto: "Data de nascimento inválida." });
       return;
     }
@@ -230,7 +182,7 @@ export default function Perfil() {
     }
 
     payload.append("nome", dados.nome);
-    payload.append("data_nasc", normalizarDataBR(dados.dataNasc || ""));
+    payload.append("data_nasc", Data.normalizarDataBR(dados.dataNasc || ""));
     payload.append("peso", dados.peso ? String(dados.peso) : "");
     payload.append("altura", dados.altura ? String(dados.altura) : "");
     payload.append("tipo_sangue", dados.tipoSangue || "");
@@ -259,7 +211,7 @@ export default function Perfil() {
 
       const cfg =
         Platform.OS === "web"
-          ? { headers: {} } // NÃO force Content-Type no web
+          ? { headers: {} } 
           : { headers: { "Content-Type": "multipart/form-data" } };
 
       await api.post(`/users/${userId}`, payload, cfg);
@@ -291,7 +243,6 @@ export default function Perfil() {
 
   return (
     <View style={styles.container}>
-      {/* HEADER */}
       <View style={styles.header}>
         <Image
           source={require("../../../assets/logo.png")}
@@ -347,7 +298,7 @@ export default function Perfil() {
             style={styles.input}
             value={dados.dataNasc}
             onChangeText={(txt) =>
-              setDados((p) => ({ ...p, dataNasc: maskDateBR(txt) }))
+              setDados((p) => ({ ...p, dataNasc: Data.maskDateBR(txt) }))
             }
             placeholder="Data de nascimento (DD/MM/AAAA)"
             keyboardType="numbers-and-punctuation"

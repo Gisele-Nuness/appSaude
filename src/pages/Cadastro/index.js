@@ -6,6 +6,7 @@ import { Modal } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import { ModalEscolhaFoto } from "../../Controller/Foto";
+import Data from "../../Controller/Data";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -20,37 +21,6 @@ export default function Cadastro() {
   const [imagem, setImagem] = useState(null);
   const [abrirEscolhaFoto, setAbrirEscolhaFoto] = useState(false);
 
-  const maskDateBR = (value) => {
-    const v = value.replace(/\D/g, "").slice(0, 8);
-    const dia = v.slice(0, 2);
-    const mes = v.slice(2, 4);
-    const ano = v.slice(4, 8);
-    return [dia, mes, ano].filter(Boolean).join("/");
-  };
-
-  const isValidDateBR = (s) => {
-    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(s)) return false;
-    const [dd, mm, yyyy] = s.split("/").map(Number);
-    const d = new Date(yyyy, mm - 1, dd);
-
-    if (
-      d.getFullYear() !== yyyy ||
-      d.getMonth() !== mm - 1 ||
-      d.getDate() !== dd
-    )
-      return false;
-
-    const hoje = new Date();
-    if (d > hoje) return false;
-    const limite = new Date(
-      hoje.getFullYear() - 120,
-      hoje.getMonth(),
-      hoje.getDate()
-    );
-    if (d < limite) return false;
-
-    return true;
-  };
 
   const salvarDados = async () => {
     if (!nome || !dataNasc || !peso || !altura || !tipoSangue) {
@@ -59,7 +29,7 @@ export default function Cadastro() {
       return;
     }
 
-    if (!isValidDateBR(dataNasc)) {
+    if (!Data.isValidDateBR(dataNasc)) {
       setModalMessage(
         "Data inválida. Use o formato DD/MM/AAAA e uma data válida."
       );
@@ -115,7 +85,7 @@ export default function Cadastro() {
           style={styles.input}
           placeholder="DD/MM/AAAA"
           value={dataNasc}
-          onChangeText={(text) => setDataNasc(maskDateBR(text))}
+          onChangeText={(text) => setDataNasc(Data.maskDateBR(text))}
         />
 
         <TextInput
