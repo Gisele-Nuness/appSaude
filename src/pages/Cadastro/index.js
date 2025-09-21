@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import { Modal } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
-import { ModalEscolhaFoto } from "../../Controller/Foto";
-import Data from "../../Controller/Data";
+import { ModalEscolhaFoto } from "../../Controllers/Foto";
+import Data from "../../Controllers/Data";
 
 export default function Cadastro() {
   const navigation = useNavigation();

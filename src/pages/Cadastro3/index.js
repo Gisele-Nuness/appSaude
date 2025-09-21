@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "../../services/api";
+import Data from "../../Controllers/Data"
 
 export default function Cadastro3() {
   const navigation = useNavigation();
@@ -28,14 +29,6 @@ export default function Cadastro3() {
     senha: "",
     confirmaSenha: "",
   });
-
-  const normalizarDataBR = (s) => {
-    if (/^\d{2}\/\d{2}\/\d{4}$/.test(s)) {
-      const [dd, mm, yyyy] = s.split("/");
-      return `${yyyy}-${mm}-${dd}`;
-    }
-    return s;
-  };
 
   const finalizarCadastro = async () => {
     if (!form.email || !form.senha || !form.confirmaSenha) {
@@ -88,7 +81,7 @@ export default function Cadastro3() {
     }
 
     payload.append("nome", dadosAnteriores.nome);
-    payload.append("data_nasc", normalizarDataBR(dadosAnteriores.dataNasc));
+    payload.append("data_nasc", Data.normalizarDataBR(dadosAnteriores.dataNasc));
     payload.append("peso", dadosAnteriores.peso ? String(dadosAnteriores.peso) : "");
     payload.append("altura", dadosAnteriores.altura ? String(dadosAnteriores.altura) : "");
     payload.append("tipo_sangue", dadosAnteriores.tipoSangue || "");

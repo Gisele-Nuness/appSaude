@@ -16,8 +16,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { api } from "../../services/api";
 import styles from "./style";
-import { ModalEscolhaFoto } from "../../Controller/Foto";
-import Data from "../../Controller/Data";
+import { ModalEscolhaFoto } from "../../Controllers/Foto";
+import Data from "../../Controllers/Data";
 
 const getPublicBaseURL = () => {
   const base = api?.defaults?.baseURL || "";

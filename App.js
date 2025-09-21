@@ -9,6 +9,7 @@ import Cadastro3 from "./src/pages/Cadastro3";
 import Login from "./src/pages/Login";
 import Home from "./src/pages/Home";
 import Perfil from "./src/pages/Perfil";
+import Frutas from "./src/pages/Frutas";
 
 
 const Stack = createNativeStackNavigator();
@@ -16,7 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="Frutas"
         screenOptions={{
           headerShown: false,
         }}
@@ -28,6 +29,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Perfil" component={Perfil} />
+        <Stack.Screen name="Frutas" component={Frutas} />
       </Stack.Navigator>
     </NavigationContainer>
   );
