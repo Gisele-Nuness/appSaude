@@ -1,9 +1,19 @@
 import Header from "../../Components/Header";
 import { useState } from "react";
-import { Image, Pressable, TextInput, View, Modal, Button, Text } from "react-native";
+import {
+  Image,
+  Pressable,
+  TextInput,
+  View,
+  Modal,
+  Button,
+  Text,
+} from "react-native";
 import styles from "./style";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Frutas() {
+  const navigation = useNavigation();
   const [textoPesquisa, setTextoPesquisa] = useState("");
   const [modal, setModal] = useState(false);
 
@@ -11,6 +21,15 @@ export default function Frutas() {
     <View style={styles.container}>
       <Header />
       <View style={styles.main}>
+        <Pressable
+          onPress={() => navigation.navigate("Home")}
+          style={styles.btnVoltar}
+        >
+          <Image
+            source={require("../../../assets/voltar.png")}
+            style={styles.voltar}
+          />
+        </Pressable>
         <View style={styles.searchWrapper}>
           <Image
             source={require("../../../assets/pesquisa.png")}

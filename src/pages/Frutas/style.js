@@ -17,6 +17,16 @@ export default StyleSheet.create({
     alignItems: "stretch",
   },
 
+  btnVoltar: {
+    top: 0,
+    left: 15,   
+  },
+
+  voltar: {
+    width: 30,
+    height: 30,
+  },
+
   searchWrapper: {
     width: "100%",
     height: 50,
@@ -26,7 +36,7 @@ export default StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 14,
     marginBottom: 16,
-    marginTop: 10,
+    marginTop: 15,
   },
 
   buscar: {
@@ -80,7 +90,7 @@ export default StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
-    frutaModal: {
+  frutaModal: {
     width: 100,
     height: 100,
     marginBottom: 20,

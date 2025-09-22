@@ -6,7 +6,6 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
   },
 
-  // ===== HEADER (mantido) =====
   header: {
     width: "100%",
     height: 100,
@@ -25,7 +24,6 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
 
-  // avatar do header (sem imagem -> perfil, com imagem -> imagem)
   perfil: {
     width: 68,
     height: 68,
@@ -43,7 +41,6 @@ export default StyleSheet.create({
     borderRadius: 50,
   },
 
-  // ===== CONTEÚDO =====
   scrollContainer: {
     flexGrow: 1,
     alignItems: "center",

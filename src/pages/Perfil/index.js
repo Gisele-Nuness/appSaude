@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -18,17 +18,8 @@ import { api } from "../../services/api";
 import styles from "./style";
 import { ModalEscolhaFoto } from "../../Controllers/Foto";
 import Data from "../../Controllers/Data";
+import { buscarPerfil, carregarPerfil } from "../../Controllers/Usuario";
 
-const getPublicBaseURL = () => {
-  const base = api?.defaults?.baseURL || "";
-  if (!base) return "";
-  try {
-    const u = new URL(base);
-    return u.origin;
-  } catch (e) {
-    return base.replace(/\/api\/?$/, "").replace(/\/$/, "");
-  }
-};
 
 export default function Perfil() {
   const navigation = useNavigation();
@@ -58,57 +49,20 @@ export default function Perfil() {
     confirmaSenha: "",
   });
 
-
-  const carregarPerfil = useCallback(async () => {
+useEffect(() => {
+  async function carregar() {
     try {
-      const userId = await AsyncStorage.getItem("@userId");
-      if (!userId) {
-        setModalMsg({
-          visivel: true,
-          texto: "Sessão expirada. Faça login novamente.",
-        });
-        return;
-      }
-
-      const { data } = await api.get(`/users/${userId}`);
-
-      setDados({
-        nome: data?.nome || "",
-        dataNasc: Data.formatarDataBR(data?.data_nasc || ""),
-        peso: data?.peso || "",
-        altura: data?.altura || "",
-        tipoSangue: data?.tipo_sangue || "",
-        cep: data?.cep || "",
-        logradouro: data?.logradouro || "",
-        numero: data?.numero || "",
-        bairro: data?.bairro || "",
-        cidade: data?.cidade || "",
-        email: data?.email || "",
-      });
-
-      const foto = data?.caminho_foto_url || data?.caminho_foto || "";
-      if (foto) {
-        const isHttp = /^https?:\/\//i.test(foto);
-        const publicBase = getPublicBaseURL();
-        const url = isHttp ? foto : `${publicBase}/storage/${foto}`;
-        setImagem(url);
-      } else {
-        setImagem("");
-      }
+      const dados = await buscarPerfil();
+      setDados(dados);
+      setImagem(dados.imagem);
     } catch (e) {
-      const msg =
-        e?.response?.data?.message ||
-        e?.response?.data?.error ||
-        "Não foi possível carregar seu perfil.";
-      setModalMsg({ visivel: true, texto: msg });
+      setModalMsg({ visivel: true, texto: e.message });
     } finally {
       setCarregando(false);
     }
-  }, []);
-
-  useEffect(() => {
-    carregarPerfil();
-  }, [carregarPerfil]);
+  }
+  carregar();
+}, []);
 
   const buscarEndereco = async () => {
     const cepLimpo = (dados.cep || "").replace(/\D/g, "");
