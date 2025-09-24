@@ -10,6 +10,7 @@ import Login from "./src/pages/Login";
 import Home from "./src/pages/Home";
 import Perfil from "./src/pages/Perfil";
 import Frutas from "./src/pages/Frutas";
+import Sangue from "./src/pages/Sangue";
 
 
 const Stack = createNativeStackNavigator();
@@ -17,7 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Sangue"
         screenOptions={{
           headerShown: false,
         }}
@@ -30,6 +31,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Perfil" component={Perfil} />
         <Stack.Screen name="Frutas" component={Frutas} />
+        <Stack.Screen name="Sangue" component={Sangue} />
       </Stack.Navigator>
     </NavigationContainer>
   );
