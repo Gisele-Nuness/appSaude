@@ -53,3 +53,26 @@ export async function buscarPerfil() {
     );
   }
 }
+
+export async function excluirPerfil() {
+  const userId = await AsyncStorage.getItem("@userId");
+  if (!userId) throw new Error("Sessão expirada. Faça login novamente.");
+
+  try {
+    const resp = await api.delete(`/users/${userId}`);
+
+    await AsyncStorage.removeItem("@userId");
+
+    return {
+      ok: true,
+      status: resp?.status ?? 204,
+      message: "Usuário deletado com sucesso.",
+    };
+  } catch (e) {
+    const msg =
+      e?.response?.data?.message ||
+      e?.response?.data?.error ||
+      "Não foi possível deletar a conta.";
+    throw new Error(msg);
+  }
+}

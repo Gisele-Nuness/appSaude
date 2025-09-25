@@ -20,8 +20,6 @@ export default function Sangue() {
         async function carregar() {
           try {
             const dados = await buscarPerfil();
-           
-            console.log("🔎 Dados retornados do buscarPerfil:", dados);
             setSangue(dados.tipoSangue);
           } catch (e) {
             setModalMsg({ visivel: true, texto: e.message });
@@ -57,7 +55,7 @@ export default function Sangue() {
           <Text style={styles.text}>O seu tipo de sangue é:</Text>
 
         <Text style={styles.textSangue}>
-          {sangue ? sangue : "Não informado"}
+          {sangue}
         </Text>
           
 

@@ -18,7 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Sangue"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
         }}

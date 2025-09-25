@@ -1,12 +1,16 @@
-import { Image, Pressable, View, Modal, Text } from "react-native";
+import { Image, Pressable, View, Modal, Text, Button } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { excluirPerfil } from "../../Controllers/Usuario";
 
 export default function Header() {
   const [menuVisible, setMenuVisible] = useState(false);
   const navigation = useNavigation();
+  const [modal, setModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalFinal, setModalFinal] = useState(false);
 
   const sair = async () => {
     try {
@@ -16,6 +20,25 @@ export default function Header() {
     } catch (error) {
       console.error("Erro ao limpar os dados:", error);
     }
+  };
+
+  const deletarConta = async () => {
+    try {
+      const res = await excluirPerfil();
+      setModal(false);
+      setModalMessage(res.message);
+      setModalFinal(true);
+
+    } catch (err) {
+      setModal(false);
+      setModalMessage(err.message);
+      setModalFinal(true);
+    }
+  };
+
+    const onFecharModalFinal = () => {
+    setModalFinal(false);
+    navigation.reset({ index: 0, routes: [{ name: "Splash" }] });
   };
 
   return (
@@ -73,6 +96,25 @@ export default function Header() {
               </View>
             </Pressable>
 
+                        <Pressable
+              style={({ pressed }) => [
+                styles.menuOptionPressable,
+                pressed && styles.menuOptionPressableHover,
+              ]}
+              onPress={() => {
+                setMenuVisible(false);
+                setModal(true);
+              }}
+            >
+              <View style={styles.menuIcons}>
+                <Image
+                  source={require("../../../assets/excluir.png")}
+                  style={styles.icons}
+                />
+                <Text style={styles.menuOptionLogout}>Excluir conta</Text>
+              </View>
+            </Pressable>
+            
             <Pressable
               style={({ pressed }) => [
                 styles.menuOptionPressable,
@@ -93,6 +135,39 @@ export default function Header() {
             </Pressable>
           </Pressable>
         </Pressable>
+      </Modal>
+
+      <Modal visible={modal} transparent={true} animationType="fade">
+        <View style={styles.modal}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>
+              Tem certeza que deseja excluir sua conta?
+            </Text>
+            <View style={{ gap: 10, width: "100%" }}>
+              <Button
+                title="Excluir"
+                color="#b82132"
+                onPress={() => deletarConta()}
+              />
+              <Button
+                title="Cancelar"
+                color="#888"
+                onPress={() => setModal(false)}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={modalFinal} transparent={true} animationType="fade">
+        <View style={styles.modal}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>{modalMessage}</Text>
+            <View style={{ gap: 10, width: "100%" }}>
+              <Button title="OK" color="#b82132" style={{width: "80px" }} onPress={onFecharModalFinal} />
+            </View>
+          </View>
+        </View>
       </Modal>
     </View>
   );

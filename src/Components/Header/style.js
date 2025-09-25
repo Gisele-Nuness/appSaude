@@ -54,7 +54,6 @@ export default StyleSheet.create({
 
   menuOptionLogout: {
     fontSize: 18,
-    marginBottom: 10,
     color: "#E63946",
     fontWeight: "600",
   },
@@ -72,13 +71,33 @@ export default StyleSheet.create({
   menuIcons: {
     flexDirection: "row",
     alignItems: "center",
+    textAlign: "center",
     marginBottom: 15,
        
   },
 
   icons: {
-    width: 25,
-    height: 25,
+    width: 26,
+    height: 26,
     marginRight: 10,
+  },
+
+    modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: "center",
   },
 });
