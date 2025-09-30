@@ -75,7 +75,7 @@ export default StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: "80%",
-    height: 300,
+    height: 500,
     alignItems: "center",
   },
   modalTitulo: {

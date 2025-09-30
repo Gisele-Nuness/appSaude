@@ -13,3 +13,13 @@ export const api = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
 });
+
+export const fruitApi = axios.create({
+baseURL: "http://localhost:8080/proxy/api",
+  timeout: 10000,
+  headers: {
+    Accept: "application/json",
+  },
+});
+
+//$ npx local-cors-proxy --proxyUrl https://www.fruityvice.com --port 8080

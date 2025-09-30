@@ -11,12 +11,48 @@ import {
 } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { fruitApi } from "../../services/api";
 
 export default function Frutas() {
   const navigation = useNavigation();
   const [textoPesquisa, setTextoPesquisa] = useState("");
   const [modal, setModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalFruta, setModalFruta] = useState(false);
+  const [fruta, setFruta] = useState("");
+  const [calorias, setCalorias] = useState("");
+  const [carboidratos, setCarboidratos] = useState("");
+  const [proteinas, setProteinas] = useState("");
+  const [gorduras, setGorduras] = useState("");
 
+  const buscarFruta = async () => {
+    const fruta = textoPesquisa.trim().toLowerCase();
+    if (fruta === "") {
+      setModalMessage("Por favor, insira o nome de uma fruta.");
+      setModal(true);
+      return;
+    }
+
+    try {
+     const { data } = await fruitApi.get(`/fruit/${encodeURIComponent(fruta)}`);
+      if (!data?.name) {
+        setModalMessage("Fruta não encontrada.");
+        setModal(true);
+        return;
+      }
+
+      setFruta(data.name);
+      setCalorias(data.nutritions?.calories ?? "");
+      setCarboidratos(data.nutritions?.carbohydrates ?? "");
+      setProteinas(data.nutritions?.protein ?? "");
+      setGorduras(data.nutritions?.fat ?? "");
+      setModalFruta(true);
+    } catch (error) {
+      setModalMessage("Erro ao buscar dados da fruta.");
+      setModal(true);
+    }
+  };
   return (
     <View style={styles.container}>
       <Header />
@@ -43,7 +79,7 @@ export default function Frutas() {
             onChangeText={setTextoPesquisa}
             returnKeyType="search"
           />
-          <Pressable onPress={() => setModal(true)}>
+          <Pressable onPress={() => buscarFruta()}>
             <Image
               source={require("../../../assets/frutas.png")}
               style={styles.iconBuscar}
@@ -60,10 +96,10 @@ export default function Frutas() {
       </View>
 
       <Modal
-        visible={modal}
+        visible={modalFruta}
         animationType="fade"
         transparent={true}
-        onRequestClose={() => setModal(false)}
+        onRequestClose={() => setModalFruta(false)}
       >
         <View style={styles.modal}>
           <View style={styles.modalContainer}>
@@ -71,12 +107,15 @@ export default function Frutas() {
               source={require("../../../assets/frutas.png")}
               style={styles.frutaModal}
             />
-            <Text style={styles.modalTitulo}>Nome fruta</Text>
-            <Text style={styles.modalText}>Calorias fruta</Text>
+            <Text style={styles.modalTitulo}>{fruta}</Text>
+            <Text style={styles.modalText}>Calorias: {calorias}kc</Text>
+            <Text style={styles.modalText}>Carboidratos: {carboidratos}g</Text>
+            <Text style={styles.modalText}>Proteínas: {proteinas}g</Text>
+            <Text style={styles.modalText}>Gorduras: {gorduras}g</Text>
             <Button
               title="Fechar"
               color="#b82132"
-              onPress={() => setModal(false)}
+              onPress={() => setModalFruta(false)}
             />
           </View>
         </View>
