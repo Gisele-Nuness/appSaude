@@ -26,5 +26,5 @@ baseURL: "http://localhost:8080/proxy/api",
 
 //php artisan serve --host 0.0.0.0 --port 8000 (rodar no backend laravel)
 
-//npx expo i expo-location
-//npx expo i react-native-maps (import MapView, {Marker} from 'react-native-maps')
+//npx expo install expo-location
+//npx expo install react-native-maps (import MapView, {Marker} from 'react-native-maps')

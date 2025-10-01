@@ -31,8 +31,8 @@ export default function Home() {
     { id: 8, nome: "Vacinas", imagem: require("../../../assets/vacina.png") },
     {
       id: 9,
-      nome: "Meditação",
-      imagem: require("../../../assets/medicamento.png"),
+      nome: "Mapa",
+      imagem: require("../../../assets/mapa.png"),
     },
     { id: 10, nome: "Frutas", imagem: require("../../../assets/fruta.png") },
     { id: 11, nome: "Dica", imagem: require("../../../assets/dica.png") },
