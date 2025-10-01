@@ -22,4 +22,4 @@ baseURL: "http://localhost:8080/proxy/api",
   },
 });
 
-//$ npx local-cors-proxy --proxyUrl https://www.fruityvice.com --port 8080
+// npx local-cors-proxy --proxyUrl https://www.fruityvice.com --port 8080

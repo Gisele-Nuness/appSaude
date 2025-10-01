@@ -19,7 +19,7 @@ export default StyleSheet.create({
 
   btnVoltar: {
     top: 0,
-    left: 15,   
+    left: 15,
   },
 
   voltar: {
@@ -70,13 +70,23 @@ export default StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.84)",
   },
-  modalContainer: {
+  modalContainerFrutas: {
     backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
     width: "80%",
     height: 500,
     alignItems: "center",
+  },
+
+  modalContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+    height: 200,
+    alignItems: "center",
+    justifyContent: "center",
   },
   modalTitulo: {
     fontSize: 22,
@@ -91,8 +101,9 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   frutaModal: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
     marginBottom: 20,
   },
 });
