@@ -11,6 +11,8 @@ import Home from "./src/pages/Home";
 import Perfil from "./src/pages/Perfil";
 import Frutas from "./src/pages/Frutas";
 import Sangue from "./src/pages/Sangue";
+import Emergencia from "./src/pages/Emergencia"
+import Vacinas from "./src/pages/Vacinas"
 import Mapa from "./src/pages/Mapa";
 
 
@@ -33,6 +35,8 @@ export default function App() {
         <Stack.Screen name="Perfil" component={Perfil} />
         <Stack.Screen name="Frutas" component={Frutas} />
         <Stack.Screen name="Sangue" component={Sangue} />
+        <Stack.Screen name="Emergencia" component={Emergencia} />
+        <Stack.Screen name="Vacinas" component={Vacinas} />
         <Stack.Screen name="Mapa" component={Mapa} />
       </Stack.Navigator>
     </NavigationContainer>
