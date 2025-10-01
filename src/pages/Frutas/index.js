@@ -1,4 +1,4 @@
-import Header from "../../Components/Header";
+import Header from "../../Components/Header/index.js";
 import { useState } from "react";
 import {
   Image,

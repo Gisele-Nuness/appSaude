@@ -1,12 +1,7 @@
 import Header from "../../Components/Header";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useState, useCallback } from "react";
-import {
-  Image,
-  Pressable,
-  View,
-  Text,
-} from "react-native";
+import { Image, Pressable, View, Text } from "react-native";
 import styles from "./style";
 import { buscarPerfil } from "../../Controllers/Usuario";
 
@@ -25,10 +20,11 @@ export default function Sangue() {
             setModalMsg({ visivel: true, texto: e.message });
           }
         }
-        carregar();
-      }, [])
-    );
-  
+      }
+      carregar();
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
       <Header />
@@ -46,11 +42,11 @@ export default function Sangue() {
         <View style={styles.containerBg}>
           <Text style={styles.titulo}>Sangue</Text>
           <Image
-              source={require("../../../assets/bolsaSangue.png")}
-              style={styles.sangueIcon}
-            />
+            source={require("../../../assets/bolsaSangue.png")}
+            style={styles.sangueIcon}
+          />
         </View>
-        
+
         <View style={styles.containerText}>
           <Text style={styles.text}>O seu tipo de sangue é:</Text>
 
@@ -60,7 +56,6 @@ export default function Sangue() {
           
 
         </View>
-
       </View>
     </View>
   );
