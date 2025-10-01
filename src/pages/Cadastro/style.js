@@ -72,15 +72,15 @@ export default StyleSheet.create({
   },
 
   input: {
-    borderColor: "#FFFFFF",
     backgroundColor: "#FFFFFF",
-    color: '#b82132',
+    color: "#b82132",
     borderRadius: 20,
     fontWeight: "bold",
     borderWidth: 1,
+    borderColor: "#FFFFFF",
     width: "88%",
-    height: 40,
-    padding: 20,
+    height: 50,
+    paddingHorizontal: 20,
     textTransform: "uppercase",
   },
 
@@ -99,24 +99,25 @@ export default StyleSheet.create({
   btnHome: {
     fontSize: 18,
     fontWeight: "bold",
-    color: '#b82132',
+    color: "#b82132",
     backgroundColor: "#fff",
-    padding: 10,
+    padding: 15,
     borderRadius: 15,
     textTransform: "uppercase",
-    marginTop: 50,
-    width: 150,
-    textAlign: 'end',
+    width: 180,
+    textAlign: "center",
+    paddingLeft: 40,
   },
 
   iconMais: {
     width: 30,
     height: 30,
     position: "absolute",
+    left: 15,
+    top: 10,
     zIndex: 1,
-    top: 58,
-    left: 15
   },
+
 
   modal: {
     flex: 1,

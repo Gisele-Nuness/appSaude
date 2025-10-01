@@ -8,6 +8,7 @@ import {
   Modal,
   Button,
   Text,
+  Platform
 } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
@@ -26,10 +27,9 @@ export default function Frutas() {
   const [proteinas, setProteinas] = useState("");
   const [gorduras, setGorduras] = useState("");
 
-
   const buscarFruta = async () => {
-     const fruta = textoPesquisa.trim().toLowerCase();
-    
+    const fruta = textoPesquisa.trim().toLowerCase();
+
     if (fruta === "") {
       setModalMessage("Por favor, insira o nome de uma fruta.");
       setModal(true);
@@ -37,7 +37,15 @@ export default function Frutas() {
     }
 
     try {
-     const { data } = await fruitApi.get(`/fruit/${encodeURIComponent(fruta)}`);
+      const { data } =
+        Platform.OS === "web"
+          ? // WEB -> usa seu proxy local: /proxy/api + "/fruit/{nome}"
+            await fruitApi.get(`/fruit/${encodeURIComponent(fruta)}`)
+          : // ANDROID/iOS -> chama direto a API pública (sem proxy, sem CORS)
+            await axios.get(`https://www.fruityvice.com/api/fruit/${fruta}`, {
+              timeout: 10000,
+              headers: { Accept: "application/json" },
+            });
 
       setFruta(data.name);
       setCalorias(data.nutritions?.calories ?? "");
@@ -49,7 +57,6 @@ export default function Frutas() {
     } catch (error) {
       setModalMessage("Fruta não encontrada.");
       setModal(true);
-      
     }
   };
 
@@ -127,7 +134,10 @@ export default function Frutas() {
         <View style={styles.modal}>
           <View style={styles.modalContainerFrutas}>
             <Image
-              source={imagensFrutas[fruta.toLowerCase()] || require("../../../assets/frutas.png")}
+              source={
+                imagensFrutas[fruta.toLowerCase()] ||
+                require("../../../assets/frutas.png")
+              }
               style={styles.frutaModal}
             />
             <Text style={styles.modalTitulo}>{fruta}</Text>

@@ -64,11 +64,8 @@ export default function Cadastro3() {
           payload.append("caminho_foto", file);
         } else {
 
-          const uri =
-            Platform.OS === "ios"
-              ? dadosAnteriores.imagem.replace("file://", "")
-              : dadosAnteriores.imagem;
-
+          const uri = dadosAnteriores.imagem;
+            
           payload.append("caminho_foto", {
             uri,
             type: "image/jpeg",

@@ -55,18 +55,17 @@ export default StyleSheet.create({
   },
 
   input: {
-    borderColor: "#FFFFFF",
     backgroundColor: "#FFFFFF",
     color: "#b82132",
     borderRadius: 20,
     fontWeight: "bold",
     borderWidth: 1,
+    borderColor: "#FFFFFF",
     width: "88%",
-    height: 40,
-    padding: 20,
+    height: 50,
+    paddingHorizontal: 20,
     textTransform: "uppercase",
   },
-
   containerBtn: {
     width: "100%",
     alignItems: "center",

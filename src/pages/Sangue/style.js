@@ -48,7 +48,7 @@ export default StyleSheet.create({
   },
 
   containerText:{
-    backgroundColor: '#ffe9ec',
+    backgroundColor: '#fcb8c1ff',
     borderTopRightRadius: 80,
     borderTopLeftRadius: 80,
     width: "100%",

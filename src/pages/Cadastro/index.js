@@ -99,7 +99,6 @@ export default function Cadastro() {
         <TextInput
           style={styles.input}
           placeholder="Altura (ex: 1.75)"
-          keyboardType="numeric"
           value={altura}
           onChangeText={(text) => setAltura(text)}
         />

@@ -7,7 +7,7 @@ const BASE_URL =
        process.env.EXPO_PUBLIC_API_URL ??
        "http://localhost:8000/api")
     : (process.env.EXPO_PUBLIC_API_URL ??
-       "http://192.168.31.108:8000/api");
+       "http://172.20.10.2:8000/api");
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -22,4 +22,9 @@ baseURL: "http://localhost:8080/proxy/api",
   },
 });
 
-// npx local-cors-proxy --proxyUrl https://www.fruityvice.com --port 8080
+// npx local-cors-proxy --proxyUrl https://www.fruityvice.com --port 8080 (rodar api web)
+
+//php artisan serve --host 0.0.0.0 --port 8000 (rodar no backend laravel)
+
+//npx expo i expo-location
+//npx expo i react-native-maps (import MapView, {Marker} from 'react-native-maps')
