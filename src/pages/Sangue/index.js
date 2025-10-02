@@ -10,17 +10,17 @@ export default function Sangue() {
   const [sangue, setSangue] = useState("");
   const [modalMsg, setModalMsg] = useState({ visivel: false, texto: "" });
 
-    useFocusEffect(
-      useCallback(() => {
-        async function carregar() {
-          try {
-            const dados = await buscarPerfil();
-            setSangue(dados.tipoSangue);
-          } catch (e) {
-            setModalMsg({ visivel: true, texto: e.message });
-          }
+  useFocusEffect(
+    useCallback(() => {
+      async function carregar() {
+        try {
+          const dados = await buscarPerfil();
+          setSangue(dados.tipoSangue);
+        } catch (e) {
+          setModalMsg({ visivel: true, texto: e.message });
         }
       }
+   
       carregar();
     }, [])
   );
@@ -49,12 +49,7 @@ export default function Sangue() {
 
         <View style={styles.containerText}>
           <Text style={styles.text}>O seu tipo de sangue é:</Text>
-
-        <Text style={styles.textSangue}>
-          {sangue}
-        </Text>
-          
-
+          <Text style={styles.textSangue}>{sangue}</Text>
         </View>
       </View>
     </View>
