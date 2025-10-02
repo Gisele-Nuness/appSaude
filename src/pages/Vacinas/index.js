@@ -7,10 +7,13 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { useState } from "react"; 
 import styles from "./style";
 
 export default function Vacinas() {
   const navigation = useNavigation();
+
+  const [cardAtivoId, setCardAtivoId] = useState(null);
 
   const grupos = [
     {
@@ -64,7 +67,46 @@ export default function Vacinas() {
       ],
     },
   ];
-  
+
+  const cardsSelecao = [
+    {
+      id: "crianca",
+      titulo: "Criança\nAdolescente até 19",
+      imagem: require("../../../assets/icon-bebe.png"),
+      gruposRelacionados: ["Criança / Adolescente até 19"],
+    },
+    {
+      id: "adulto",
+      titulo: "Adulto\nIdoso",
+      imagem: require("../../../assets/icon-idoso.png"),
+      gruposRelacionados: ["Adulto", "Idoso"],
+    },
+    {
+      id: "gestante",
+      titulo: "Gestante\nPeríodo Gestacional",
+      imagem: require("../../../assets/icon-gestante.png"),
+      gruposRelacionados: ["Gestante"],
+    },
+  ];
+
+  const cardAtivo = cardsSelecao.find((card) => card.id === cardAtivoId);
+
+  const vacinasExibidas = grupos.filter((grupo) => {
+
+    if (cardAtivoId === null) {
+      return true;
+    }
+
+    if (cardAtivo && cardAtivo.gruposRelacionados.includes(grupo.titulo)) {
+      return true;
+    }
+
+    return false;
+  });
+
+  const handleCardClick = (cardId) => {
+    setCardAtivoId(cardId);
+  };
 
   return (
     <View style={styles.container}>
@@ -85,40 +127,38 @@ export default function Vacinas() {
       </View>
 
       <View style={styles.cardsGrupo}>
-         <View style={styles.cardGrupo}>
-            <Image
-              source={require("../../../assets/icon-bebe.png")}
-              style={styles.cardImagem}
-            />
-            <Text style={styles.cardTexto}>Criança{"\n"}Adolescente até 19</Text>
-          </View>
-
-          <View style={styles.cardGrupo}>
-            <Image
-              source={require("../../../assets/icon-idoso.png")}
-              style={styles.cardImagem}
-            />
-            <Text style={styles.cardTexto}>Adulto{"\n"}Idoso</Text>
-          </View>
-
-          <View style={styles.cardGrupo}>
-            <Image
-              source={require("../../../assets/icon-gestante.png")}
-              style={styles.cardImagem}
-            />
-            <Text style={styles.cardTexto}>Gestante{"\n"}Período Gestacional</Text>
-          </View>
-    </View>
+        {cardsSelecao.map((card) => {
+        
+          const isSelected = card.id === cardAtivoId;
+          
+          return (
+            <Pressable
+              key={card.id}
+              onPress={() => handleCardClick(card.id)}
+              style={[
+                styles.cardGrupo,
+                isSelected ? styles.cardGrupoAtivo : null,
+              ]}
+            >
+              <Image source={card.imagem} style={styles.cardImagem} />
+              <Text style={styles.cardTexto}>{card.titulo}</Text>
+            </Pressable>
+          );
+        })}
+      </View>
 
       <ScrollView contentContainerStyle={styles.scroll}>
-        {grupos.map((grupo, index) => (
+        {vacinasExibidas.map((grupo, index) => (
           <View key={index} style={styles.card}>
             <Text style={styles.cardTitulo}>{grupo.titulo}</Text>
             {grupo.vacinas.map((vacina, idx) => (
-              <Text key={idx} style={styles.itemVacina}>• {vacina}</Text>
+              <Text key={idx} style={styles.itemVacina}>
+                • {vacina}
+              </Text>
             ))}
           </View>
         ))}
+        
       </ScrollView>
     </View>
   );
