@@ -5,10 +5,12 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { FlatList } from "react-native";
 import Header from "../../Components/Header";
 import { buscarPerfil } from "../../Controllers/Usuario";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Home() {
   const navigation = useNavigation();
-  const [modalMsg, setModalMsg] = useState({ visivel: false, texto: "" });
+  const [modal, setModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [nome, setNome] = useState("");
   const [imagem, setImagem] = useState(null);
 
@@ -51,7 +53,8 @@ export default function Home() {
           setNome(dados.nome);
           setImagem(dados.imagem);
         } catch (e) {
-          setModalMsg({ visivel: true, texto: e.message });
+          setModal(true);
+          setModalMessage("Erro ao carregar dados do usuário.");
         }
       }
       carregar();
@@ -89,6 +92,12 @@ export default function Home() {
           numColumns={3}
         />
       </View>
+
+      <ModalPadrao
+        visible={modal}
+        onClose={() => setModal(false)}
+        modalMessage={modalMessage}
+      />
     </View>
   );
 }

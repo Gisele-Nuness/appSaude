@@ -21,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Mapa"
+        initialRouteName="Cadastro"
         screenOptions={{
           headerShown: false,
         }}

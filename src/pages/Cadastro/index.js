@@ -7,6 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import { ModalEscolhaFoto } from "../../Controllers/Foto";
 import Data from "../../Controllers/Data";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -20,7 +21,6 @@ export default function Cadastro() {
   const [modalMessage, setModalMessage] = useState("");
   const [imagem, setImagem] = useState(null);
   const [abrirEscolhaFoto, setAbrirEscolhaFoto] = useState(false);
-
 
   const salvarDados = async () => {
     if (!nome || !dataNasc || !peso || !altura || !tipoSangue) {
@@ -50,17 +50,16 @@ export default function Cadastro() {
         />
       </View>
 
-      <Pressable
-        onPress={() => navigation.navigate("Login")}
-        style={styles.btnVoltar}
-      >
-        <Image
-          source={require("../../../assets/voltar.png")}
-          style={styles.voltar}
-        />
-      </Pressable>
-
       <View style={styles.containerTitulo}>
+        <Pressable
+          onPress={() => navigation.navigate("Login")}
+          style={styles.btnVoltar}
+        >
+          <Image
+            source={require("../../../assets/voltar.png")}
+            style={styles.voltar}
+          />
+        </Pressable>
         <Text style={styles.titulo}>Cadastre-se</Text>
         <Pressable onPress={() => setAbrirEscolhaFoto(true)}>
           {imagem ? (
@@ -129,23 +128,11 @@ export default function Cadastro() {
         </Pressable>
       </View>
 
-      <Modal
+      <ModalPadrao
         visible={modal}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModal(false)}
-      >
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>{modalMessage}</Text>
-            <Button
-              title="Fechar"
-              color="#b82132"
-              onPress={() => setModal(false)}
-            />
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setModal(false)}
+        modalMessage={modalMessage}
+      />
 
       <ModalEscolhaFoto
         visivel={abrirEscolhaFoto}

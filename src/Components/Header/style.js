@@ -8,7 +8,8 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    paddingVertical: 0,
+    paddingTop: 80,
+    paddingBottom: 40,
     paddingHorizontal: 20,
   },
 
@@ -20,8 +21,8 @@ export default StyleSheet.create({
   },
 
   menu: {
-    width: 45,
-    height: 45,
+    width: 50,
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
   },

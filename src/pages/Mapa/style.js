@@ -19,13 +19,18 @@ export default StyleSheet.create({
   },
 
   btnVoltar: {
-    top: 0,
+    top: 10,
     left: 15,   
   },
 
   voltar: {
     width: 30,
     height: 30,
+  },
+
+  mapa: {
+    flex: 1,
+    width: "100%",
   },
 
 })

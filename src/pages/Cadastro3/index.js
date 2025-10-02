@@ -14,7 +14,8 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { api } from "../../services/api";
-import Data from "../../Controllers/Data"
+import Data from "../../Controllers/Data";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Cadastro3() {
   const navigation = useNavigation();
@@ -60,12 +61,13 @@ export default function Cadastro3() {
           const resp = await fetch(dadosAnteriores.imagem);
           const blob = await resp.blob();
           const ext = (blob.type && blob.type.split("/")[1]) || "jpg";
-          const file = new File([blob], `foto.${ext}`, { type: blob.type || "image/jpeg" });
+          const file = new File([blob], `foto.${ext}`, {
+            type: blob.type || "image/jpeg",
+          });
           payload.append("caminho_foto", file);
         } else {
-
           const uri = dadosAnteriores.imagem;
-            
+
           payload.append("caminho_foto", {
             uri,
             type: "image/jpeg",
@@ -78,9 +80,18 @@ export default function Cadastro3() {
     }
 
     payload.append("nome", dadosAnteriores.nome);
-    payload.append("data_nasc", Data.normalizarDataBR(dadosAnteriores.dataNasc));
-    payload.append("peso", dadosAnteriores.peso ? String(dadosAnteriores.peso) : "");
-    payload.append("altura", dadosAnteriores.altura ? String(dadosAnteriores.altura) : "");
+    payload.append(
+      "data_nasc",
+      Data.normalizarDataBR(dadosAnteriores.dataNasc)
+    );
+    payload.append(
+      "peso",
+      dadosAnteriores.peso ? String(dadosAnteriores.peso) : ""
+    );
+    payload.append(
+      "altura",
+      dadosAnteriores.altura ? String(dadosAnteriores.altura) : ""
+    );
     payload.append("tipo_sangue", dadosAnteriores.tipoSangue || "");
     payload.append("cep", dadosAnteriores.cep || "");
     payload.append("logradouro", dadosAnteriores.logradouro || "");
@@ -115,15 +126,27 @@ export default function Cadastro3() {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.header}>
-          <Image source={require("../../../assets/logo.png")} style={styles.logo} />
+          <Image
+            source={require("../../../assets/logo.png")}
+            style={styles.logo}
+          />
         </View>
 
         <View style={styles.containerTitulo}>
-          <Pressable onPress={() => navigation.goBack()} style={styles.btnVoltar}>
-            <Image source={require("../../../assets/voltar.png")} style={styles.voltar} />
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={styles.btnVoltar}
+          >
+            <Image
+              source={require("../../../assets/voltar.png")}
+              style={styles.voltar}
+            />
           </Pressable>
           <Text style={styles.titulo}>Cadastre-se</Text>
-          <Image source={require("../../../assets/cadeado.png")} style={styles.imgPerfil} />
+          <Image
+            source={require("../../../assets/cadeado.png")}
+            style={styles.imgPerfil}
+          />
         </View>
 
         <View style={styles.containerInput}>
@@ -147,26 +170,28 @@ export default function Cadastro3() {
           <TextInput
             style={styles.input}
             value={form.confirmaSenha}
-            onChangeText={(txt) => setForm((prev) => ({ ...prev, confirmaSenha: txt }))}
+            onChangeText={(txt) =>
+              setForm((prev) => ({ ...prev, confirmaSenha: txt }))
+            }
             placeholder="Confirme sua senha"
             secureTextEntry
           />
 
           <Pressable onPress={finalizarCadastro} style={styles.btnContainer}>
-            <Image source={require("../../../assets/plus.png")} style={styles.iconMais} />
+            <Image
+              source={require("../../../assets/plus.png")}
+              style={styles.iconMais}
+            />
             <Text style={styles.btnHome}>Cadastrar</Text>
           </Pressable>
         </View>
       </ScrollView>
-
-      <Modal visible={modal} animationType="fade" transparent onRequestClose={fecharModal}>
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>{modalMessage}</Text>
-            <Button title="Fechar" color="#b82132" onPress={fecharModal} />
-          </View>
-        </View>
-      </Modal>
+      
+      <ModalPadrao
+        visible={modal}
+        onClose={fecharModal}
+        modalMessage={modalMessage}
+      />
     </View>
   );
 }
