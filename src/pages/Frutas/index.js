@@ -14,6 +14,7 @@ import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { fruitApi } from "../../services/api";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Frutas() {
   const navigation = useNavigation();
@@ -39,9 +40,9 @@ export default function Frutas() {
     try {
       const { data } =
         Platform.OS === "web"
-          ? // WEB -> usa seu proxy local: /proxy/api + "/fruit/{nome}"
+          ?
             await fruitApi.get(`/fruit/${encodeURIComponent(fruta)}`)
-          : // ANDROID/iOS -> chama direto a API pública (sem proxy, sem CORS)
+          :
             await axios.get(`https://www.fruityvice.com/api/fruit/${fruta}`, {
               timeout: 10000,
               headers: { Accept: "application/json" },
@@ -153,23 +154,12 @@ export default function Frutas() {
           </View>
         </View>
       </Modal>
-      <Modal
+      <ModalPadrao
         visible={modal}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModal(false)}
-      >
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>{modalMessage}</Text>
-            <Button
-              title="Fechar"
-              color="#b82132"
-              onPress={() => setModal(false)}
-            />
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setModal(false)}
+        modalMessage={modalMessage}
+      />
+
     </View>
   );
 }

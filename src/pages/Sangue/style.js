@@ -10,16 +10,10 @@ export default StyleSheet.create({
     overflow: "hidden",
   },
 
-  main: {
-    flex: 1,
-    width: "100%",
-    paddingTop: 20,
-    alignItems: "stretch",
-  },
-
   btnVoltar: {
-    top: 0,
-    left: 15,   
+    position: "absolute",
+    top: 130,
+    left: 30,
   },
 
   voltar: {
@@ -27,10 +21,16 @@ export default StyleSheet.create({
     height: 30,
   },
 
-  titulo:{
+  main: {
+    flex: 1,
+    width: "100%",
+    alignItems: "stretch",
+  },
+
+  titulo: {
     fontSize: 30,
     fontWeight: "bold",
-    color: '#b82132',
+    color: "#b82132",
     padding: 5,
     textTransform: "uppercase",
     alignSelf: "center",
@@ -40,6 +40,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    
   },
 
   sangueIcon: {
@@ -47,33 +48,27 @@ export default StyleSheet.create({
     height: 300,
   },
 
-  containerText:{
-    backgroundColor: '#fcb8c1ff',
+  containerText: {
+    backgroundColor: "#fcb8c1ff",
     borderTopRightRadius: 80,
     borderTopLeftRadius: 80,
     width: "100%",
-    height: 400,
+    height: 380,
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30
+    justifyContent: "center",  
   },
 
-  text:{
+  text: {
     fontSize: 20,
     fontWeight: "bold",
-    color: '#b82132',
+    color: "#b82132",
     padding: 5,
-    gap: 100,
-    alignSelf: "center",
   },
 
-  textSangue:{
+  textSangue: {
     fontSize: 100,
     fontWeight: "bold",
-    color: '#b82132',
+    color: "#b82132",
     padding: 5,
-    gap: 100,
-    alignSelf: "center",
-  }
-
+  },
 });

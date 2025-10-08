@@ -1,16 +1,17 @@
 import Header from "../../Components/Header";
-import { Image, Pressable, View, Text, Modal, Button } from "react-native";
+import { Image, Pressable, View, Text} from "react-native";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./style";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Mapa() {
   const navigation = useNavigation();
 
   const [location, setLocation] = useState(null);
-  const [msg, setMsg] = useState("");
+  const [message, setMessage] = useState("");
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function Mapa() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setModal(true);
-        setMsg("Permissão para acessar a localização foi negada");
+        setMessage("Permissão para acessar a localização foi negada");
         return;
       }
 
@@ -30,58 +31,46 @@ export default function Mapa() {
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.main}>
-        <Pressable
-          onPress={() => navigation.navigate("Home")}
-          style={styles.btnVoltar}
-        >
-          <Image
-            source={require("../../../assets/voltar.png")}
-            style={styles.voltar}
-          />
-        </Pressable>
 
-        {location ? (
-          <MapView
-            style={styles.map}
-            region={{
+      {location ? (
+        <MapView
+          style={styles.mapa}
+          region={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          }}
+        >
+          <Marker
+            coordinate={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
             }}
+            title="Sua Localização"
+            description="Aqui está sua localização atual"
+          />
+          <Pressable
+            onPress={() => navigation.navigate("Home")}
+            style={styles.btnVoltar}
           >
-            <Marker
-              coordinate={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-              }}
-              title="Sua Localização"
-              description="Aqui está sua localização atual"
+            <Image
+              source={require("../../../assets/voltar.png")}
+              style={styles.voltar}
             />
-          </MapView>
-        ) : (
-          <Text style={styles.loadingText}>Carregando localização...</Text>
-        )}
-      </View>
+          </Pressable>
+        </MapView>
+      ) : (
+        <Text style={styles.loadingText}>Carregando localização...</Text>
+      )}
 
-      <Modal
+      <ModalPadrao
         visible={modal}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={() => setModal(false)}
-      >
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>{msg}</Text>
-            <Button
-              title="Fechar"
-              color="#b82132"
-              onPress={() => setModal(false)}
-            />
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setModal(false)}
+        modalMessage={message}       
+      />
+
     </View>
+    
   );
 }

@@ -4,11 +4,13 @@ import { useState, useCallback } from "react";
 import { Image, Pressable, View, Text } from "react-native";
 import styles from "./style";
 import { buscarPerfil } from "../../Controllers/Usuario";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Sangue() {
   const navigation = useNavigation();
   const [sangue, setSangue] = useState("");
-  const [modalMsg, setModalMsg] = useState({ visivel: false, texto: "" });
+  const [modal, setModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   useFocusEffect(
     useCallback(() => {
@@ -17,7 +19,8 @@ export default function Sangue() {
           const dados = await buscarPerfil();
           setSangue(dados.tipoSangue);
         } catch (e) {
-          setModalMsg({ visivel: true, texto: e.message });
+          setModal(true);
+          setModalMessage("Erro ao carregar dados do usuário.");
         }
       }
    
@@ -28,17 +31,16 @@ export default function Sangue() {
   return (
     <View style={styles.container}>
       <Header />
+      <Pressable
+        onPress={() => navigation.navigate("Home")}
+        style={styles.btnVoltar}
+      >
+        <Image
+          source={require("../../../assets/voltar.png")}
+          style={styles.voltar}
+        />
+      </Pressable>
       <View style={styles.main}>
-        <Pressable
-          onPress={() => navigation.navigate("Home")}
-          style={styles.btnVoltar}
-        >
-          <Image
-            source={require("../../../assets/voltar.png")}
-            style={styles.voltar}
-          />
-        </Pressable>
-
         <View style={styles.containerBg}>
           <Text style={styles.titulo}>Sangue</Text>
           <Image
@@ -49,9 +51,16 @@ export default function Sangue() {
 
         <View style={styles.containerText}>
           <Text style={styles.text}>O seu tipo de sangue é:</Text>
+
           <Text style={styles.textSangue}>{sangue}</Text>
         </View>
       </View>
+
+      <ModalPadrao
+        visible={modal}
+        message={modalMessage}
+        onClose={() => setModal(false)}
+      />
     </View>
   );
 }

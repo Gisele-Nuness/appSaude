@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Modal } from "react-native";
 import axios from "axios";
+import ModalPadrao from "../../Components/Modal/index.js";
 
 export default function Cadastro2() {
   const navigation = useNavigation();
@@ -61,15 +62,24 @@ export default function Cadastro2() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require("../../../assets/logo.png")} style={styles.logo} />
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={styles.logo}
+        />
       </View>
 
       <View style={styles.containerTitulo}>
         <Pressable onPress={() => navigation.goBack()} style={styles.btnVoltar}>
-          <Image source={require("../../../assets/voltar.png")} style={styles.voltar} />
+          <Image
+            source={require("../../../assets/voltar.png")}
+            style={styles.voltar}
+          />
         </Pressable>
         <Text style={styles.titulo}>Cadastre-se</Text>
-        <Image source={require("../../../assets/localizacao.png")} style={styles.imgPerfil} />
+        <Image
+          source={require("../../../assets/localizacao.png")}
+          style={styles.imgPerfil}
+        />
       </View>
 
       <View style={styles.containerInput}>
@@ -112,19 +122,19 @@ export default function Cadastro2() {
         />
 
         <Pressable onPress={salvarDados}>
-          <Image source={require("../../../assets/plus.png")} style={styles.iconMais} />
+          <Image
+            source={require("../../../assets/plus.png")}
+            style={styles.iconMais}
+          />
           <Text style={styles.btnHome}>Próximo</Text>
         </Pressable>
       </View>
 
-      <Modal visible={modal} animationType="fade" transparent onRequestClose={() => setModal(false)}>
-        <View style={styles.modal}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>{modalMessage}</Text>
-            <Button title="Fechar" color="#b82132" onPress={() => setModal(false)} />
-          </View>
-        </View>
-      </Modal>
+      <ModalPadrao
+        visible={modal}
+        onClose={() => setModal(false)}
+        modalMessage={modalMessage}
+      />
     </View>
   );
 }

@@ -13,7 +13,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     paddingHorizontal: 16,
-    paddingTop: 20,
+    paddingTop: 30,
     alignItems: "center",
     gap: 10,
   },
@@ -36,10 +36,9 @@ export default StyleSheet.create({
 
   cardsContainer: {
     width: "100%",
-    padding: 20,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    paddingTop: 40,
   },
 
   card: {
