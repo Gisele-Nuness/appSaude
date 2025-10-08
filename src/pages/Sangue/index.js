@@ -23,6 +23,7 @@ export default function Sangue() {
           setModalMessage("Erro ao carregar dados do usuário.");
         }
       }
+   
       carregar();
     }, [])
   );

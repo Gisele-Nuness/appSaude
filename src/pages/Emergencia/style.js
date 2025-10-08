@@ -1,13 +1,20 @@
 import { StyleSheet } from "react-native";
 
+const Colors = {
+  Background: "#FFFFFF",   
+  TextDark: "#222222",   
+  TextGray: "#555555",  
+  TextRed: "#b82132"
+};
+
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.Background,
   },
 
   btnVoltar: {
-    top: 15,
+    top: 20,
     left: 15,   
   },
 
@@ -19,46 +26,105 @@ export default StyleSheet.create({
   topo: {
     alignItems: "center",
     marginTop: 0,
-    marginBottom: 50,
+    marginBottom: 30,
+    paddingHorizontal: 20,
+  },
+
+  telefoneHeaderIcon:{
+    width: 60,
+    height: 60,
+    resizeMode: "contain",
+    marginBottom: 10,
   },
 
   titulo: {
     fontSize: 28,
-    fontWeight: "bold",
-    color: "#b82132",
-    marginBottom: 20,
+    fontWeight: "900",
+    color: Colors.TextRed,
+    letterSpacing: 1,
+    marginBottom: 5,
+  },
+  
+  subtitulo: {
+    fontSize: 14,
+    color: Colors.TextGray,
+    fontWeight: "400",
   },
 
   telefoneIcon: {
-    width: 100,
-    height: 100,
+    width: 40,
+    height: 40,
+    resizeMode: "contain",
+    marginRight: 15,
+  },
+
+  scrollContent: {
+    paddingBottom: 40,
   },
 
   listaContainer: {
-    flex: 1,
-    backgroundColor: "#ffe9ec",
-    borderTopLeftRadius: 80,
-    borderTopRightRadius: 80,
-    padding: 20,
+    paddingHorizontal: 15,
   },
 
   item: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 15,
+    justifyContent: "space-between", 
+    backgroundColor: "#fff",
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  
+  iconeContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 15,
   },
 
   icone: {
-    width: 50,
-    height: 50,
-    marginRight: 15,
+    width: 40,
+    height: 40,
     resizeMode: "contain",
+    marginRight: 15,
+  },
+  
+  
+  textoContainer: {
+    flex: 1,
   },
 
-  texto: {
-    fontSize: 18,
-    color: "#b82132",
-    fontWeight: "bold",
-    flexShrink: 1,
+  textoNome: {
+    fontSize: 16,
+    color: Colors.TextDark,
+    fontWeight: "500",
   },
+  
+  textoNumero: {
+    fontSize: 20,
+    color: Colors.TextDark,
+    fontWeight: "800",
+    marginTop: 2,
+    letterSpacing: 1,
+  },
+
+  telefoneContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  
+  callIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: "contain",
+  },
+  
 });
