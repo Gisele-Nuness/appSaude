@@ -71,7 +71,7 @@ export default function Login() {
 
       <View style={styles.containerTitulo}>
         <Text style={styles.titulo}>Login</Text>
-        <Image source={require("../../../assets/perfil.png")} style={styles.imgPerfil} />
+        <Image source={require("../../../assets/perfil-login.png")} style={styles.imgPerfil} />
       </View>
 
       <View style={styles.containerInput}>

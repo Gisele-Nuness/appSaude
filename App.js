@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "react-native";
 
 import Splash from "./src/pages/Splash";
 import Cadastro from "./src/pages/Cadastro";
@@ -19,6 +20,8 @@ import Mapa from "./src/pages/Mapa";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
+    <>
+    <StatusBar hidden />
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Cadastro"
@@ -40,5 +43,6 @@ export default function App() {
         <Stack.Screen name="Mapa" component={Mapa} />
       </Stack.Navigator>
     </NavigationContainer>
+    </>
   );
 }

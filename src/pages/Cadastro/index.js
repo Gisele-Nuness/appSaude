@@ -1,4 +1,4 @@
-import { Text, View, Pressable, TextInput, Image, Button } from "react-native";
+import { Text, View, Pressable, TextInput, Image, Button, Platform } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
@@ -21,6 +21,7 @@ export default function Cadastro() {
   const [modalMessage, setModalMessage] = useState("");
   const [imagem, setImagem] = useState(null);
   const [abrirEscolhaFoto, setAbrirEscolhaFoto] = useState(false);
+  const [sangueModalVisivel, setSangueModalVisivel] = useState(false);
 
   const salvarDados = async () => {
     if (!nome || !dataNasc || !peso || !altura || !tipoSangue) {
@@ -102,22 +103,16 @@ export default function Cadastro() {
           onChangeText={(text) => setAltura(text)}
         />
 
-        <Picker
-          selectedValue={tipoSangue}
-          placeholder="Tipo Sanguineo"
-          style={styles.picker}
-          onValueChange={(itemValue) => setTipoSangue(itemValue)}
-        >
-          <Picker.Item label="Selecione o tipo sanguíneo" value="" />
-          <Picker.Item label="A+" value="A+" />
-          <Picker.Item label="A-" value="A-" />
-          <Picker.Item label="B+" value="B+" />
-          <Picker.Item label="B-" value="B-" />
-          <Picker.Item label="AB+" value="AB+" />
-          <Picker.Item label="AB-" value="AB-" />
-          <Picker.Item label="O+" value="O+" />
-          <Picker.Item label="O-" value="O-" />
-        </Picker>
+        
+          <Pressable
+          style={styles.input}
+            onPress={() => setSangueModalVisivel(true)}
+          >
+            <Text style={styles.pickerText}>
+              {tipoSangue || "Selecione o tipo sanguineo"}
+            </Text>
+          </Pressable>
+        
 
         <Pressable onPress={salvarDados}>
           <Image
@@ -140,6 +135,64 @@ export default function Cadastro() {
         setImagem={setImagem}
         setAbrirEscolhaFoto={setAbrirEscolhaFoto}
       />
+
+      <Modal
+        transparent={true}
+        visible={sangueModalVisivel}
+        animationType="slide"
+        onRequestClose={() => setSangueModalVisivel(false)}
+      >
+        <Pressable
+          style={styles.overlay}
+          onPress={() => setSangueModalVisivel(false)}
+        >
+          <View style={styles.pickerContent}>
+            {Platform.OS === "web" ? (
+              <View>
+                <Text style={styles.webPickerTitle}>Selecione o tipo sanguineo</Text>
+                {["A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "O-"].map(
+                  (item) => (
+                    <Pressable
+                      key={item}
+                      style={[
+                        styles.webPickerOption,
+                        tipoSangue === item && styles.webPickerOptionSelected,
+                      ]}
+                      onPress={() => {
+                        setTipoSangue(item);
+                        setSangueModalVisivel(false);
+                      }}
+                    >
+                      <Text style={styles.webPickerOptionText}>{item}</Text>
+                    </Pressable>
+                  )
+                )}
+              </View>
+            ) : (
+              <>
+                <Picker
+                  selectedValue={tipoSangue}
+                  placeholder="Tipo Sanguineo"
+                  style={styles.picker}
+                  onValueChange={(itemValue) => setTipoSangue(itemValue)}
+                >
+                  <Picker.Item label="Selecione o tipo sanguíneo" value="" color="#000000"/>
+                  <Picker.Item label="A+" value="A+" color="#000000" />
+                  <Picker.Item label="A-" value="A-" color="#000000" />
+                  <Picker.Item label="B+" value="B+" color="#000000"/>
+                  <Picker.Item label="B-" value="B-" color="#000000" />
+                  <Picker.Item label="B-" value="B-" color="#000000"/>
+                  <Picker.Item label="B-" value="B-" color="#000000" />
+                  <Picker.Item label="AB+" value="AB+" color="#000000" />
+                  <Picker.Item label="AB-" value="AB-" color="#000000" />
+                  <Picker.Item label="O+" value="O+" color="#000000" />
+                  <Picker.Item label="O-" value="O-" color="#000000" />
+                </Picker>
+              </>
+            )}
+          </View>
+        </Pressable>
+      </Modal>
     </View>
   );
 }

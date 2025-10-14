@@ -38,8 +38,8 @@ export default StyleSheet.create({
   },
 
   imgPerfil: {
-    width: 120,
-    height: 120,
+    width: 135,
+    height: 135,
   },
 
   containerInput: {
