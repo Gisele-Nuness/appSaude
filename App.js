@@ -15,6 +15,7 @@ import Sangue from "./src/pages/Sangue";
 import Emergencia from "./src/pages/Emergencia"
 import Vacinas from "./src/pages/Vacinas"
 import Mapa from "./src/pages/Mapa";
+import Alergias from "./src/pages/Alergias";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +25,7 @@ export default function App() {
     <StatusBar hidden />
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Cadastro"
+        initialRouteName="Alergias"
         screenOptions={{
           headerShown: false,
         }}
@@ -41,6 +42,7 @@ export default function App() {
         <Stack.Screen name="Emergencia" component={Emergencia} />
         <Stack.Screen name="Vacinas" component={Vacinas} />
         <Stack.Screen name="Mapa" component={Mapa} />
+        <Stack.Screen name="Alergias" component={Alergias} />
       </Stack.Navigator>
     </NavigationContainer>
     </>
