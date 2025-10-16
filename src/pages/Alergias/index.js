@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,22 +14,18 @@ import { Picker } from "@react-native-picker/picker";
 import styles from "./style";
 import Header from "../../Components/Header";
 import { useNavigation } from "@react-navigation/native";
+import ModalPadrao from "../../Components/Modal/index.js";
 
-const DADOS_INICIAIS_ALERGIAS = [
-  { id: "1", name: "Alergia a Amendoim", severity: "Alta", type: "Alimentar" },
-  { id: "2", name: "Alergia a Camarão", severity: "Média", type: "Alimentar" },
-  {
-    id: "3",
-    name: "Rinite Alérgica (Pólen)",
-    severity: "Baixa",
-    type: "Respiratória",
-  },
-];
+import { buscarAlergias, cadastrarAlergia } from "../../Controllers/Alergia";
+
+const DADOS_INICIAIS_ALERGIAS = [];
 
 export default function Alergias() {
   const navigation = useNavigation();
   const [alergias, setAlergias] = useState(DADOS_INICIAIS_ALERGIAS);
   const [textoPesquisa, setTextoPesquisa] = useState("");
+  const [modal, setModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const [modalAtivo, setModalAtivo] = useState(null);
 
@@ -37,24 +33,60 @@ export default function Alergias() {
   const [novaSeveridade, setNovaSeveridade] = useState("");
   const [novoTipo, setNovoTipo] = useState("");
 
-  const handleAdicionarAlergia = () => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const lista = await buscarAlergias();
+
+        const adaptadas = lista.map((a) => ({
+          id: String(a.id),
+          name: a.nome || "",
+          type: a.tipo || "",
+          severity: a.severidade || "",
+        }));
+        setAlergias(adaptadas);
+      } catch (e) {
+        setModal(true);
+        setModalMessage("Não foi possível carregar suas alergias.");
+      }
+    })();
+  }, []);
+
+  const handleAdicionarAlergia = async () => {
     if (!novoNome.trim() || !novaSeveridade || !novoTipo) {
-      Alert.alert("Erro", "Por favor, preencha todos os campos.");
+      setModalAtivo(null)
+      setModal(true);
+      setModalMessage("Por favor, preencha todos os campos.");
       return;
     }
-    const novaAlergia = {
-      id: String(Date.now()),
-      name: novoNome,
-      severity: novaSeveridade,
-      type: novoTipo,
-    };
-    setAlergias((alergiasAnteriores) => [...alergiasAnteriores, novaAlergia]);
 
-    setNovoNome("");
-    setNovaSeveridade("");
-    setNovoTipo("");
-    setModalAtivo(null);
-    Keyboard.dismiss();
+    try {
+      const criada = await cadastrarAlergia({
+        nome: novoNome,
+        tipo: novoTipo,
+        severidade: novaSeveridade,
+      });
+
+      const novaAlergia = {
+        id: String(criada.id ?? Date.now()),
+        name: criada.nome || novoNome,
+        type: criada.tipo || novoTipo,
+        severity: criada.severidade || novaSeveridade,
+      };
+
+      setAlergias((alergiasAnteriores) => [...alergiasAnteriores, novaAlergia]);
+
+      setNovoNome("");
+      setNovaSeveridade("");
+      setNovoTipo("");
+      setModalAtivo(null);
+      Keyboard.dismiss();
+      setModal(true);
+      setModalMessage("Alergia cadastrada com sucesso!");
+    } catch (e) {
+      setModal(true);
+      setModalMessage("Não foi possível cadastrar a alergia.");
+    }
   };
 
   const fecharModalPrincipal = () => {
@@ -161,7 +193,6 @@ export default function Alergias() {
             style={styles.pickerOverlay}
             onPress={() => setModalAtivo("form")}
           >
-
             <Pressable style={styles.pickerContent} onPress={() => {}}>
               <Picker
                 selectedValue={novaSeveridade}
@@ -170,10 +201,14 @@ export default function Alergias() {
                   setModalAtivo("form");
                 }}
               >
-                <Picker.Item label="Selecione a severidade..." value="" color="#000"/>
-                <Picker.Item label="Alta" value="Alta" color="#000"/>
-                <Picker.Item label="Média" value="Média" color="#000"/>
-                <Picker.Item label="Baixa" value="Baixa" color="#000"/>
+                <Picker.Item
+                  label="Selecione a severidade..."
+                  value=""
+                  color="#000"
+                />
+                <Picker.Item label="Alta" value="Alta" color="#000" />
+                <Picker.Item label="Média" value="Média" color="#000" />
+                <Picker.Item label="Baixa" value="Baixa" color="#000" />
               </Picker>
             </Pressable>
           </Pressable>
@@ -193,12 +228,24 @@ export default function Alergias() {
                   setModalAtivo("form");
                 }}
               >
-                <Picker.Item label="Selecione o tipo..." value="" color="#000"/>
-                <Picker.Item label="Alimentar" value="Alimentar" color="#000"/>
-                <Picker.Item label="Respiratória" value="Respiratória" color="#000"/>
-                <Picker.Item label="Medicamentosa" value="Medicamentosa" color="#000"/>
-                <Picker.Item label="Contato" value="Contato" color="#000"/>
-                <Picker.Item label="Outro" value="Outro" color="#000"/>
+                <Picker.Item
+                  label="Selecione o tipo..."
+                  value=""
+                  color="#000"
+                />
+                <Picker.Item label="Alimentar" value="Alimentar" color="#000" />
+                <Picker.Item
+                  label="Respiratória"
+                  value="Respiratória"
+                  color="#000"
+                />
+                <Picker.Item
+                  label="Medicamentosa"
+                  value="Medicamentosa"
+                  color="#000"
+                />
+                <Picker.Item label="Contato" value="Contato" color="#000" />
+                <Picker.Item label="Outro" value="Outro" color="#000" />
               </Picker>
             </Pressable>
           </Pressable>
@@ -266,6 +313,12 @@ export default function Alergias() {
       >
         {renderModalContent()}
       </Modal>
+
+      <ModalPadrao
+        visible={modal}
+        onClose={() => setModal(false)}
+        modalMessage={modalMessage}
+      />
     </View>
   );
 }

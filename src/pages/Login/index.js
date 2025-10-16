@@ -22,8 +22,6 @@ export default function Login() {
   const [modal, setModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-
-
   const entrar = async () => {
     if (!email || !senha) {
       setModal(true);
@@ -48,6 +46,10 @@ export default function Login() {
       if (resp?.data?.ok && resp?.data?.user) {
         const user = resp.data.user;
 
+        if (resp?.data?.token) {
+          await AsyncStorage.setItem("@token", String(resp.data.token));
+        }
+
         await AsyncStorage.setItem("@userId", String(user.id));
 
         setModal(true);
@@ -66,12 +68,18 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require("../../../assets/logo.png")} style={styles.logo} />
+        <Image
+          source={require("../../../assets/logo.png")}
+          style={styles.logo}
+        />
       </View>
 
       <View style={styles.containerTitulo}>
         <Text style={styles.titulo}>Login</Text>
-        <Image source={require("../../../assets/perfil-login.png")} style={styles.imgPerfil} />
+        <Image
+          source={require("../../../assets/perfil-login.png")}
+          style={styles.imgPerfil}
+        />
       </View>
 
       <View style={styles.containerInput}>
@@ -83,7 +91,6 @@ export default function Login() {
           autoCapitalize="none"
           keyboardType="email-address"
           placeholderTextColor="#b82132"
-          
         />
         <TextInput
           style={styles.input}
@@ -101,8 +108,13 @@ export default function Login() {
         </View>
 
         <View style={styles.containerCadastro}>
-          <Pressable style={styles.btnCadastro} onPress={() => navigation.navigate("Cadastro")}>
-            <Text style={styles.txtBtnCadastro}>Não tem cadastro? Clique aqui</Text>
+          <Pressable
+            style={styles.btnCadastro}
+            onPress={() => navigation.navigate("Cadastro")}
+          >
+            <Text style={styles.txtBtnCadastro}>
+              Não tem cadastro? Clique aqui
+            </Text>
           </Pressable>
         </View>
       </View>

@@ -25,7 +25,7 @@ export default function App() {
     <StatusBar hidden />
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Alergias"
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
         }}
