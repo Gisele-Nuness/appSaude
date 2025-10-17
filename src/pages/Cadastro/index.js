@@ -1,4 +1,12 @@
-import { Text, View, Pressable, TextInput, Image, Button, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  Image,
+  Button,
+  Platform,
+} from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
@@ -33,6 +41,15 @@ export default function Cadastro() {
     if (!Data.isValidDateBR(dataNasc)) {
       setModalMessage(
         "Data inválida. Use o formato DD/MM/AAAA e uma data válida."
+      );
+      setModal(true);
+      return;
+    }
+
+    const alturaRegex = /^\d\.\d{2}$/;
+    if (!alturaRegex.test(altura)) {
+      setModalMessage(
+        "Altura inválida. Use o formato 1.72 (metros com ponto)."
       );
       setModal(true);
       return;
@@ -103,16 +120,14 @@ export default function Cadastro() {
           onChangeText={(text) => setAltura(text)}
         />
 
-        
-          <Pressable
+        <Pressable
           style={styles.input}
-            onPress={() => setSangueModalVisivel(true)}
-          >
-            <Text style={styles.pickerText}>
-              {tipoSangue || "Selecione o tipo sanguineo"}
-            </Text>
-          </Pressable>
-        
+          onPress={() => setSangueModalVisivel(true)}
+        >
+          <Text style={styles.pickerText}>
+            {tipoSangue || "Selecione o tipo sanguineo"}
+          </Text>
+        </Pressable>
 
         <Pressable onPress={salvarDados}>
           <Image
@@ -149,7 +164,9 @@ export default function Cadastro() {
           <View style={styles.pickerContent}>
             {Platform.OS === "web" ? (
               <View>
-                <Text style={styles.webPickerTitle}>Selecione o tipo sanguineo</Text>
+                <Text style={styles.webPickerTitle}>
+                  Selecione o tipo sanguineo
+                </Text>
                 {["A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "O-"].map(
                   (item) => (
                     <Pressable
@@ -176,12 +193,16 @@ export default function Cadastro() {
                   style={styles.picker}
                   onValueChange={(itemValue) => setTipoSangue(itemValue)}
                 >
-                  <Picker.Item label="Selecione o tipo sanguíneo" value="" color="#000000"/>
+                  <Picker.Item
+                    label="Selecione o tipo sanguíneo"
+                    value=""
+                    color="#000000"
+                  />
                   <Picker.Item label="A+" value="A+" color="#000000" />
                   <Picker.Item label="A-" value="A-" color="#000000" />
-                  <Picker.Item label="B+" value="B+" color="#000000"/>
+                  <Picker.Item label="B+" value="B+" color="#000000" />
                   <Picker.Item label="B-" value="B-" color="#000000" />
-                  <Picker.Item label="B-" value="B-" color="#000000"/>
+                  <Picker.Item label="B-" value="B-" color="#000000" />
                   <Picker.Item label="B-" value="B-" color="#000000" />
                   <Picker.Item label="AB+" value="AB+" color="#000000" />
                   <Picker.Item label="AB-" value="AB-" color="#000000" />
