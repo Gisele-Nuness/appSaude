@@ -31,5 +31,6 @@ export default StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
     textAlign: "center",
-  },
+    color: '#333', 
+   },
 });
