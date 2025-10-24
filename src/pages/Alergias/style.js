@@ -5,7 +5,7 @@ const MEDIUM_SEVERITY = "#FFA500";
 const LOW_SEVERITY = "#4CAF50";
 
 export default StyleSheet.create({
-  // ... (seus estilos existentes, como container, main, cards, etc.)
+  
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -103,11 +103,11 @@ export default StyleSheet.create({
     fontSize: 13,
   },
 
-  // --- ESTILOS DO FOOTER MODIFICADOS ---
+  
   footerContainer: {
     width: "100%",
     padding: 16,
-    backgroundColor: "#fff", // Fundo branco para combinar
+    backgroundColor: "#fff",
     borderTopWidth: 1,
     borderTopColor: "#e0e0e0",
   },
@@ -195,7 +195,7 @@ export default StyleSheet.create({
     borderColor: "#ddd",
     borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 14, // Aumentar um pouco o padding vertical para toque
+    paddingVertical: 14,
     marginBottom: 15,
     justifyContent: 'center',
   },
@@ -205,11 +205,11 @@ export default StyleSheet.create({
   },
   placeholderText: {
     fontSize: 16,
-    color: '#888', // Cor de placeholder
+    color: '#888',
   },
   pickerOverlay: {
     flex: 1,
-    justifyContent: 'flex-end', // Alinha o conteúdo na parte de baixo
+    justifyContent: 'flex-end',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   pickerContent: {
@@ -218,4 +218,26 @@ export default StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 16,
   },
+
+  botaoNovo: {
+  position: "absolute",
+  bottom: 20,
+  left: 20,
+  right: 20,
+  backgroundColor: "#b82132",
+  padding: 15,
+  borderRadius: 10,
+  alignItems: "center",
+  justifyContent: "center",
+  shadowColor: "#000",
+  shadowOpacity: 0.2,
+  shadowOffset: { width: 0, height: 3 },
+  elevation: 4,
+},
+txtNovo: {
+  color: "#fff",
+  fontSize: 18,
+  fontWeight: "bold",
+},
+
 });

@@ -83,6 +83,12 @@ export default StyleSheet.create({
     marginRight: 10,
   },
 
+  iconNotificacao: {
+    width: 28,
+    height: 28,
+    marginLeft: 80
+  },
+
     modal: {
     flex: 1,
     justifyContent: "center",
@@ -101,4 +107,72 @@ export default StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
+
+     badge: {
+      position: "absolute",
+      top: -5,
+      right: -8,
+      backgroundColor: "red",
+      borderRadius: 8,
+      width: 16,
+      height: 16,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    badgeText: {
+      color: "#fff",
+      fontSize: 10,
+      fontWeight: "bold",
+    },
+    modalFundo: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.6)",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    modalConteudo: {
+      backgroundColor: "#fff",
+      borderRadius: 15,
+      padding: 20,
+      width: "85%",
+    },
+    modalTitulo: {
+      fontSize: 18,
+      fontWeight: "bold",
+      marginBottom: 10,
+      textAlign: "center",
+    },
+    notificacaoItem: {
+      borderBottomWidth: 1,
+      borderColor: "#eee",
+      paddingVertical: 8,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      marginBottom: 8,
+    },
+
+    comprimidoIcon: {
+      width: 24,
+      height: 24,
+      marginBottom: 4,
+    },
+    btnFechar: {
+      marginTop: 15,
+      backgroundColor: "#b82132",
+      padding: 10,
+      borderRadius: 8,
+    },
+    btnFecharTexto: {
+      color: "#fff",
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+
+      btnExcluir: {
+      marginTop: 15,
+      backgroundColor: "#E02416",
+      padding: 10,
+      borderRadius: 8,
+    },
 });
