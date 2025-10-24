@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "react-native";
 import { NotificationProvider } from "./src/Context/NotificationContext";
-import { GestureHandlerRootView } from "react-native-gesture-handler"; // 👈 IMPORTANTE
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Splash from "./src/pages/Splash";
 import Cadastro from "./src/pages/Cadastro";
@@ -18,6 +18,8 @@ import Emergencia from "./src/pages/Emergencia";
 import Vacinas from "./src/pages/Vacinas";
 import Mapa from "./src/pages/Mapa";
 import Alergias from "./src/pages/Alergias";
+import Glicemia from "./src/pages/Glicemia";
+import Agua from "./src/pages/Agua";
 import Remedios from "./src/pages/Remedios";
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +47,8 @@ export default function App() {
             <Stack.Screen name="Vacinas" component={Vacinas} />
             <Stack.Screen name="Mapa" component={Mapa} />
             <Stack.Screen name="Alergias" component={Alergias} />
+            <Stack.Screen name="Agua" component={Agua} />
+            <Stack.Screen name="Glicemia" component={Glicemia} />  
             <Stack.Screen name="Remedios" component={Remedios} />
           </Stack.Navigator>
         </NavigationContainer>
