@@ -8,7 +8,7 @@ const BASE_URL =
        process.env.EXPO_PUBLIC_API_URL ??
        "http://localhost:8000/api")
     : (process.env.EXPO_PUBLIC_API_URL ??
-       "http://10.0.0.189:8000/api");
+       "http://192.168.31.108:8000/api");
 
 export const api = axios.create({
   baseURL: BASE_URL,

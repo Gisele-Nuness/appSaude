@@ -25,7 +25,6 @@ export default StyleSheet.create({
   main: {
     flex: 1,
     width: "100%",
-    alignItems: "stretch",
     paddingHorizontal: 20,
   },
 

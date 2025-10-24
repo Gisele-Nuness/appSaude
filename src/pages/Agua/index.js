@@ -67,7 +67,7 @@ export default function Agua() {
         />
       </Pressable>
 
-      <View style={styles.main}>
+      <ScrollView style={styles.main}>
         <Text style={styles.titulo}>ÁGUA</Text>
 
         <View style={styles.controleDiarioContainer}>
@@ -130,7 +130,7 @@ export default function Agua() {
           </View>
         </View>
 
-        <ScrollView style={styles.historicoContainer}>
+        <View style={styles.historicoContainer}>
           <Text style={styles.historicoTitle}>Histórico de Hoje</Text>
           {historico.length === 0 ? (
             <Text style={styles.historicoEmpty}>Nenhum registro hoje</Text>
@@ -143,8 +143,8 @@ export default function Agua() {
               </View>
             ))
           )}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
 
       <ModalPadrao
         visible={modal}
