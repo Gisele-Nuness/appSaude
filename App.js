@@ -21,6 +21,7 @@ import Alergias from "./src/pages/Alergias";
 import Glicemia from "./src/pages/Glicemia";
 import Agua from "./src/pages/Agua";
 import Remedios from "./src/pages/Remedios";
+import Dica from "./src/pages/Dica";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,7 +32,7 @@ export default function App() {
         <StatusBar hidden />
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="Dica"
             screenOptions={{ headerShown: false }}
           >
             <Stack.Screen name="Splash" component={Splash} />
@@ -50,6 +51,8 @@ export default function App() {
             <Stack.Screen name="Agua" component={Agua} />
             <Stack.Screen name="Glicemia" component={Glicemia} />  
             <Stack.Screen name="Remedios" component={Remedios} />
+            <Stack.Screen name="Dica" component={Dica} />
+
           </Stack.Navigator>
         </NavigationContainer>
       </NotificationProvider>
